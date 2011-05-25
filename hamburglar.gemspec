@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   # s.add_dependency('gem', '= 0.0.0')
 
   s.add_development_dependency('rspec', '~> 2.6')
+  s.add_development_dependency('rake',  '~> 0.8.7')
 
   s.extra_rdoc_files = ['README.markdown']
   s.rdoc_options     = ["--charset=UTF-8"]
