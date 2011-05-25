@@ -53,6 +53,14 @@ describe Hamburglar::Gateways::Base do
       Hamburglar::Gateways::Base.required_params :foo
       @gateway.validate!.should == true
     end
+
+    it "adds missing params to @errors[:missing_parameter]" do
+      Hamburglar::Gateways::Base.required_params :one, :two
+      @gateway.validate!
+      missing = @gateway.errors[:missing_parameter]
+      missing.should be_an Array
+      missing.should have(2).items
+    end
   end
 
   describe "#submit!" do

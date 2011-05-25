@@ -24,10 +24,13 @@ module Hamburglar
       #
       # Returns false if a parameter isn't set
       def validate!
+        @errors[:missing_parameter] = []
         self.class.required_params.each do |req|
-          return false unless @params.has_key?(req)
+          unless @params.has_key?(req)
+            @errors[:missing_parameter] << @param
+          end
         end
-        true
+        @errors[:missing_parameter].empty?
       end
 
       # Submit a request upstream to generate a fraud report
@@ -39,6 +42,8 @@ module Hamburglar
         unless validate!
           return false
         end
+
+        # Code to perform HTTP Request here
       end
     end
   end
