@@ -60,7 +60,7 @@ describe Hamburglar::Gateways::Base do
       @gateway.validate!.should == false
     end
 
-    it "returns true if required_parames are set" do
+    it "returns true if required_params are set" do
       Hamburglar::Gateways::Base.required_params :foo
       @gateway.validate!.should == true
     end
