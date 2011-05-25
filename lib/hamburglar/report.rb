@@ -1,6 +1,5 @@
 module Hamburglar
-  # The Hamburglar::Report is the main class for generating fraud
-  # reports
+  # Hamburglar::Report is the main class for generating fraud reports
   class Report
     attr_reader :params
 
