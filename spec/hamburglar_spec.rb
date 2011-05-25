@@ -16,15 +16,14 @@ describe Hamburglar do
   end
 
   describe "::GATEWAYS" do
-    it "returns an array of registered gateways" do
-      Hamburglar::GATEWAYS.should be_a Array
-    end
+    it { Hamburglar::GATEWAYS.should be_a Array }
+    it { Hamburglar::GATEWAYS.should be_frozen  }
   end
 
   describe "::gateway" do
     it "sets and gets the gateway" do
-      Hamburglar.gateway = :foo
-      Hamburglar.gateway.should == :foo
+      Hamburglar.gateway = :max_mind
+      Hamburglar.gateway.should == :max_mind
     end
   end
 end
