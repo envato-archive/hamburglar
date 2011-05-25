@@ -18,6 +18,19 @@ describe Hamburglar::Gateways::Base do
     end
   end
 
+  describe "::api_url" do
+    it "gets and sets @api_url with an argument" do
+      Hamburglar::Gateways::Base.api_url "http://example.com"
+      Hamburglar::Gateways::Base.api_url.should == "http://example.com"
+    end
+
+    it "raises InvalidURL when setting an invalid URL" do
+      expect {
+        Hamburglar::Gateways::MaxMind.api_url "i'm not a url!"
+      }.to raise_error(Hamburglar::InvalidURL)
+    end
+  end
+
   describe "#initialize" do
     it "sets @params" do
       p = @gateway.instance_variable_get(:@params)

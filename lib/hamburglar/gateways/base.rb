@@ -25,6 +25,19 @@ module Hamburglar
         end
       end
 
+      # Get or set the API URL for the gateway
+      def self.api_url(url = nil)
+        if url
+          if url.match /https?:\/\/[\S]+/
+            @api_url = url
+          else
+            raise Hamburglar::InvalidURL, url
+          end
+        else
+          @api_url ||= ""
+        end
+      end
+
       # Validate presence of required_params
       #
       # Returns false if a parameter isn't set
