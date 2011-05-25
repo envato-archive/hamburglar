@@ -25,5 +25,9 @@ describe Hamburglar do
       Hamburglar.gateway = :max_mind
       Hamburglar.gateway.should == :max_mind
     end
+
+    it "raises InvalidGateway when assigned an invalid gateway" do
+      expect { Hamburglar.gateway = :foo }.to raise_error Hamburglar::InvalidGateway
+    end
   end
 end

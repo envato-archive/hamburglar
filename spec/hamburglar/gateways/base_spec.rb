@@ -78,8 +78,8 @@ describe Hamburglar::Gateways::Base do
 
   describe "#submit!" do
     it "raises InvalidGateway unless Hamburglar.gateway is set" do
+      Hamburglar.instance_variable_set(:@gateway, nil)
       expect do
-        Hamburglar.gateway = nil
         Hamburglar::Gateways::Base.new.submit!
       end.to raise_error Hamburglar::InvalidGateway
     end
