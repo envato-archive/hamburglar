@@ -24,6 +24,10 @@ describe Hamburglar::Gateways::Base do
       p.should be_a Hash
       p.should have_key :foo
     end
+
+    it "sets @errors to a blank hash" do
+      @gateway.instance_variable_get(:@errors).should == {}
+    end
   end
 
   describe "#params" do

@@ -6,6 +6,7 @@ module Hamburglar
 
       def initialize(params = {})
         @params = params
+        @errors = {}
       end
 
       # Get or set required parameters for this report
