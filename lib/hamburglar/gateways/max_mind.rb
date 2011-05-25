@@ -1,5 +1,9 @@
 module Hamburglar
   module Gateways
+    # The Hamburglar::Gateways::MaxMind class handles fraud verification
+    # through MaxMind's minFraud API.
+    #
+    # See: http://www.maxmind.com/app/ccv
     class MaxMind < Base
       # The MaxMind API URL
       # TODO: Switch to https
