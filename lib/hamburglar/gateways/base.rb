@@ -25,6 +25,15 @@ module Hamburglar
         end
       end
 
+      # Get or set optional parameters for this report
+      def self.optional_params(*params)
+        if params.size > 0
+          @optional_params = params
+        else
+          @optional_params ||= []
+        end
+      end
+
       # Get or set the API URL for the gateway
       def self.api_url(url = nil)
         if url

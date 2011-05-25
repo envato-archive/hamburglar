@@ -11,6 +11,13 @@ module Hamburglar
 
       # Required parameters for a MaxMind API call
       required_params :i, :city, :region, :postal, :country, :license_key
+
+      # Optional parameters
+      optional_params :domain, :bin, :binName, :binPhone, :custPhone,
+                      :requested_type, :forwardedIP, :emailMD5, :usernameMD5,
+                      :passwordMD5, :shipAddr, :shipCity, :shipRegion,
+                      :shipPostal, :shipCountry, :textID, :sessionID,
+                      :user_agent, :accept_language
     end
   end
 end
