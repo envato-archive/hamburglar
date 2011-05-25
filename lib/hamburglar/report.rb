@@ -26,5 +26,16 @@ module Hamburglar
       end
       true
     end
+
+    # Submit a request upstream to generate a fraud report
+    def submit!
+      if Hamburglar.gateway.nil?
+        raise Hamburglar::InvalidGateway
+      end
+
+      unless validate!
+        return false
+      end
+    end
   end
 end

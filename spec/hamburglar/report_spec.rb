@@ -49,7 +49,16 @@ describe Hamburglar::Report do
     it "returns true or false"
   end
 
-  describe "#commit!" do
-    it "raises InvalidGateway unless Hamburglar.gateway is set"
+  describe "#submit!" do
+    it "raises InvalidGateway unless Hamburglar.gateway is set" do
+      expect do
+        Hamburglar.gateway = nil
+        Hamburglar::Report.new.submit!
+      end.to raise_error Hamburglar::InvalidGateway
+    end
+
+    it "returns false if required_params aren't set" do
+      Hamburglar::Report.new.submit!.should == false
+    end
   end
 end
