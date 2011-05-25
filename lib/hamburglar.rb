@@ -8,6 +8,8 @@ module Hamburglar
   GATEWAYS = [:max_mind, :fraud_guardian].freeze
 
   class << self
+    # The current gateway
+    attr_reader :gateway
 
     # Authorization credentials for the gateway in use
     attr_accessor :credentials
