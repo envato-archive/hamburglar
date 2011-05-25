@@ -38,6 +38,11 @@ describe Hamburglar::Report do
       Hamburglar::Report.required_params :one, :two
       @report.validate!.should == false
     end
+
+    it "returns true if required_parames are set" do
+      Hamburglar::Report.required_params :foo
+      @report.validate!.should == true
+    end
   end
 
   describe "#fraud?" do

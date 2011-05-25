@@ -24,6 +24,7 @@ module Hamburglar
       self.class.required_params.each do |req|
         return false unless @params.has_key?(req)
       end
+      true
     end
   end
 end
