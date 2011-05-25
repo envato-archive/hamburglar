@@ -6,17 +6,15 @@ describe Hamburglar::Gateways::Base do
     @gateway = Hamburglar::Gateways::Base.new(:foo => :bar)
   end
 
-  %w[required optional].each do |p|
-    describe "::#{p}_params" do
-      it "returns @#{p}_params without arguments" do
-        Hamburglar::Gateways::Base.send("#{p}_params").should == []
-      end
+  describe "::required_params" do
+    it "returns @required_params without arguments" do
+      Hamburglar::Gateways::Base.required_params.should == []
+    end
 
-      it "sets @#{p}_params with arguments" do
-        Hamburglar::Gateways::Base.send("#{p}_params", :one, :two, :three)
-        Hamburglar::Gateways::Base.instance_variable_get("@#{p}_params").should ==
-          [:one, :two, :three]
-      end
+    it "sets @required_params with arguments" do
+      Hamburglar::Gateways::Base.required_params :one, :two, :three
+      Hamburglar::Gateways::Base.required_params.should ==
+        [:one, :two, :three]
     end
   end
 
