@@ -22,9 +22,4 @@ module Hamburglar
     end
     @gateway = gateway
   end
-
-  # The current gateway
-  def self.gateway
-    @gateway
-  end
 end
