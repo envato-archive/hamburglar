@@ -30,8 +30,6 @@ describe Hamburglar::Gateways::Base do
     end
   end
 
-  # attr_readers
-
   %w[params errors].each do |attr|
     describe "##{attr}" do
       it "returns @#{attr} hash" do
@@ -54,10 +52,10 @@ describe Hamburglar::Gateways::Base do
       @gateway.validate!.should == true
     end
 
-    it "adds missing params to @errors[:missing_parameter]" do
+    it "adds missing params to @errors[:missing_parameters]" do
       Hamburglar::Gateways::Base.required_params :one, :two
       @gateway.validate!
-      missing = @gateway.errors[:missing_parameter]
+      missing = @gateway.errors[:missing_parameters]
       missing.should be_an Array
       missing.should have(2).items
     end
