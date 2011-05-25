@@ -33,6 +33,13 @@ describe Hamburglar::Report do
     end
   end
 
+  describe "#validate!" do
+    it "returns false if required_params aren't set" do
+      Hamburglar::Report.required_params :one, :two
+      @report.validate!.should == false
+    end
+  end
+
   describe "#fraud?" do
     it "returns true or false"
   end

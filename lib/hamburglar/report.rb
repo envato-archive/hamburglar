@@ -16,5 +16,14 @@ module Hamburglar
         @required_params ||= []
       end
     end
+
+    # Validate presence of required_params
+    #
+    # Returns false if a parameter isn't set
+    def validate!
+      self.class.required_params.each do |req|
+        return false unless @params.has_key?(req)
+      end
+    end
   end
 end
