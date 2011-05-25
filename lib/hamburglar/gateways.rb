@@ -1,5 +1,5 @@
 module Hamburglar
   module Gateways
-    autoload :Base,    'Hamburglar/gateways/base'
+    autoload :Base,    'hamburglar/gateways/base'
   end
 end
