@@ -1,9 +1,9 @@
 require 'hamburglar/errors'
 
 module Hamburglar
-  autoload :Version, 'hamburglar/version'
-  autoload :Report,  'hamburglar/report'
-  autoload :Gateway, 'hamburglar/gateway'
+  autoload :Version,  'hamburglar/version'
+  autoload :Report,   'hamburglar/report'
+  autoload :Gateways, 'hamburglar/gateways'
 
   GATEWAYS = [:max_mind, :fraud_guardian].freeze
 
