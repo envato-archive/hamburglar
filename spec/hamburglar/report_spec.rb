@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Hamburglar::Report do
   before :each do
+    Hamburglar.gateway = :max_mind
     @report = Hamburglar::Report.new(:foo => :bar)
   end
 
