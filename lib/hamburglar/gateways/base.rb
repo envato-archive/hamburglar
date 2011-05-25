@@ -1,9 +1,14 @@
 module Hamburglar
   module Gateways
+    # Hamburglar::Gateways::Base is the main class that handles sending API
+    # requests to upstream providers. All other gateways should inherit from
+    # this class
     class Base
 
+      # The parameters for the API request
       attr_reader :params
 
+      # Errors returned when validating or submitting a request
       attr_reader :errors
 
       def initialize(params = {})
