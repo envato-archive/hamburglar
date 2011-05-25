@@ -5,6 +5,18 @@ describe Hamburglar::Report do
     @report = Hamburglar::Report.new(:foo => :bar)
   end
 
+  describe "::required_params" do
+    it "returns @required_params without arguments" do
+      Hamburglar::Report.required_params.should == []
+    end
+
+    it "sets @required_params with arguments" do
+      Hamburglar::Report.required_params :one, :two, :three
+      Hamburglar::Report.instance_variable_get(:@required_params).should ==
+        [:one, :two, :three]
+    end
+  end
+
   describe "#initialize" do
     it "sets @params" do
       p = @report.instance_variable_get(:@params)

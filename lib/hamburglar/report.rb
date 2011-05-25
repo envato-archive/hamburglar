@@ -7,5 +7,14 @@ module Hamburglar
     def initialize(params = {})
       @params = params
     end
+
+    # Get or set required parameters for this report
+    def self.required_params(*params)
+      if params.size > 0
+        @required_params = params
+      else
+        @required_params ||= []
+      end
+    end
   end
 end
