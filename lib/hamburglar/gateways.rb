@@ -1,6 +1,6 @@
 module Hamburglar
   module Gateways
-    autoload :Base,    'hamburglar/gateways/base'
+    autoload :Base,    'Hamburglar/gateways/base'
     autoload :MaxMind, 'hamburglar/gateways/max_mind'
   end
 end
