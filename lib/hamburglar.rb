@@ -1,3 +1,5 @@
+require 'hamburglar/errors'
+
 module Hamburglar
   autoload :Version, 'hamburglar/version'
   autoload :Report,  'hamburglar/report'
