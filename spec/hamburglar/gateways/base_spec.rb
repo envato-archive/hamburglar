@@ -30,11 +30,16 @@ describe Hamburglar::Gateways::Base do
     end
   end
 
-  describe "#params" do
-    it "returns @params hash" do
-      @gateway.params.should be_a Hash
-      raw_params = @gateway.instance_variable_get(:@params)
-      raw_params.should == @gateway.params
+  # attr_readers
+
+  %w[params errors].each do |attr|
+    describe "##{attr}" do
+      it "returns @#{attr} hash" do
+        val = @gateway.send(attr)
+        raw = @gateway.instance_variable_get("@#{attr}")
+        val.should be_a Hash
+        val.should == raw
+      end
     end
   end
 

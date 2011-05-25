@@ -4,6 +4,8 @@ module Hamburglar
 
       attr_reader :params
 
+      attr_reader :errors
+
       def initialize(params = {})
         @params = params
         @errors = {}
