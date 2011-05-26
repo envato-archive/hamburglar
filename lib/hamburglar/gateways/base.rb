@@ -71,14 +71,8 @@ module Hamburglar
       end
 
       # Submit a request upstream to generate a fraud report
-      def submit!
-        if Hamburglar.gateway.nil?
-          raise Hamburglar::InvalidGateway
-        end
-
-        unless validate
-          return false
-        end
+      def submit
+        return false unless valid?
 
         # Code to perform HTTP Request here
       end
