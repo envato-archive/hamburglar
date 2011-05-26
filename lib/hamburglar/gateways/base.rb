@@ -11,9 +11,13 @@ module Hamburglar
       # Errors returned when validating or submitting a request
       attr_reader :errors
 
+      # Response returned by an API call
+      attr_reader :response
+
       def initialize(params = {})
-        @params = params
-        @errors = {}
+        @params   = params
+        @errors   = {}
+        @response = {}
       end
 
       # Get or set required parameters for this report
@@ -41,7 +45,7 @@ module Hamburglar
       # Validate presence of required_params
       #
       # Returns false if a parameter isn't set
-      def validate!
+      def validate
         @errors[:missing_parameters] = []
         self.class.required_params.each do |req|
           unless @params.has_key?(req)
@@ -51,13 +55,20 @@ module Hamburglar
         @errors[:missing_parameters].empty?
       end
 
+      # Validate presence of required_params
+      #
+      # Raises Hamburglar::InvalidRequest if validation fails
+      def validate!
+        validate || raise(Hamburglar::InvalidRequest)
+      end
+
       # Submit a request upstream to generate a fraud report
       def submit!
         if Hamburglar.gateway.nil?
           raise Hamburglar::InvalidGateway
         end
 
-        unless validate!
+        unless validate
           return false
         end
 

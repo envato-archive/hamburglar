@@ -38,12 +38,14 @@ describe Hamburglar::Gateways::Base do
       p.should have_key :foo
     end
 
-    it "sets @errors to a blank hash" do
-      @gateway.instance_variable_get(:@errors).should == {}
+    %w[errors response].each do |var|
+      it "sets @#{var} to an empty Hash" do
+        @gateway.instance_variable_get("@#{var}").should == {}
+      end
     end
   end
 
-  %w[params errors].each do |attr|
+  %w[params errors response].each do |attr|
     describe "##{attr}" do
       it "returns @#{attr} hash" do
         val = @gateway.send(attr)
@@ -54,23 +56,30 @@ describe Hamburglar::Gateways::Base do
     end
   end
 
-  describe "#validate!" do
+  describe "#validate" do
     it "returns false if required_params aren't set" do
       Hamburglar::Gateways::Base.required_params :one, :two
-      @gateway.validate!.should == false
+      @gateway.validate.should == false
     end
 
     it "returns true if required_params are set" do
       Hamburglar::Gateways::Base.required_params :foo
-      @gateway.validate!.should == true
+      @gateway.validate.should == true
     end
 
     it "adds missing params to @errors[:missing_parameters]" do
       Hamburglar::Gateways::Base.required_params :one, :two
-      @gateway.validate!
+      @gateway.validate
       missing = @gateway.errors[:missing_parameters]
       missing.should be_an Array
       missing.should have(2).items
+    end
+  end
+
+  describe "#validate!" do
+    it "raises InvalidRequest if validation fails" do
+      Hamburglar::Gateways::Base.required_params :one, :two
+      expect { @gateway.validate! }.to raise_error Hamburglar::InvalidRequest
     end
   end
 
