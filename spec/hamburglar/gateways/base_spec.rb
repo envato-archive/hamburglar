@@ -95,6 +95,34 @@ describe Hamburglar::Gateways::Base do
       missing.should be_an Array
       missing.should have(2).items
     end
+
+    it "ensures @validated is true when done" do
+      @gateway.validate
+      @gateway.instance_variable_get(:@validated).should == true
+    end
+
+    describe "revalidation" do
+      before :each do
+        Hamburglar::Gateways::Base.required_params :one, :two
+      end
+
+      it "happens when #validate(true) is called" do
+        @gateway.validate.should == false
+      end
+
+      it "happens not when #validate is called" do
+        @gateway.validate.should == false
+        @gateway.params[:one] = 1
+        @gateway.params[:two] = 2
+        @gateway.validate(true).should == true
+      end
+    end
+  end
+
+  describe "#valid?" do
+    it "is an alias for validate" do
+      @gateway.method(:valid?).should == @gateway.method(:validate)
+    end
   end
 
   describe "#validate!" do

@@ -47,15 +47,22 @@ module Hamburglar
       # Validate presence of required_params
       #
       # Returns false if a parameter isn't set
-      def validate
-        @errors[:missing_parameters] = []
-        self.class.required_params.each do |req|
-          unless @params.has_key?(req)
-            @errors[:missing_parameters] << @param
+      def validate(revalidate = false)
+        @validated = false if revalidate
+
+        unless @validated
+          @errors[:missing_parameters] = []
+          self.class.required_params.each do |req|
+            unless @params.has_key?(req)
+              @errors[:missing_parameters] << @param
+            end
           end
         end
         @errors[:missing_parameters].empty?
+      ensure
+        @validated = true
       end
+      alias_method :valid?, :validate
 
       # Validate presence of required_params
       #
