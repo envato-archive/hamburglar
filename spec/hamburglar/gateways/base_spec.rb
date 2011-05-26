@@ -6,6 +6,27 @@ describe Hamburglar::Gateways::Base do
     @gateway = Hamburglar::Gateways::Base.new(:foo => :bar)
   end
 
+  describe "::URL_REGEX" do
+    reg = Hamburglar::Gateways::Base::URL_REGEX
+    it { reg.should be_a Regexp }
+
+    it "should match http urls" do
+      "http://example.com/some/url.ext?p=f&amp;a=b".should match reg
+    end
+
+    it "should match https urls" do
+      "https://example.com/some/url.ext?p=f&amp;a=b".should match reg
+    end
+
+    it "should not match non-urls" do
+      "i am not a url".should_not match reg
+      "ftp://foo.bar/baz".should_not match reg
+      "git://foo.bar/baz".should_not match reg
+      "http://".should_not match reg
+      "https://".should_not match reg
+    end
+  end
+
   describe "::required_params" do
     it "returns @required_params without arguments" do
       Hamburglar::Gateways::Base.required_params.should == []

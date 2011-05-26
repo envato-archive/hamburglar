@@ -5,6 +5,8 @@ module Hamburglar
     # this class
     class Base
 
+      URL_REGEX = /https?:\/\/[\S]+/
+
       # The parameters for the API request
       attr_reader :params
 
@@ -32,7 +34,7 @@ module Hamburglar
       # Get or set the API URL for the gateway
       def self.api_url(url = nil)
         if url
-          if url.match /https?:\/\/[\S]+/
+          if url.match URL_REGEX
             @api_url = url
           else
             raise Hamburglar::InvalidURL, url

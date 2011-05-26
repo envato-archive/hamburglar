@@ -13,7 +13,7 @@ describe Hamburglar::Gateways::MaxMind do
   end
 
   describe "::api_url" do
-    reg = /https?:\/\/[\S]+/
+    reg = Hamburglar::Gateways::Base::URL_REGEX
     it { Hamburglar::Gateways::MaxMind.api_url.should match reg }
   end
 end
