@@ -2,15 +2,44 @@
 
 Hamburglar helps you prevent fraudulent orders.
 
+## Prerequisites
+
+You must have an active account with one of the APIs Hamburglar
+supports. See `Supported APIs` below.
+
+## Installation
+
+    gem install hamburglar
+
 ## Usage
 
-    # Configure
-    Hamburglar.gateway = :fraud_guardian || :max_mind
-    Hamburglar.credentials = { :foo => 'bar' }
+To get a fraud report, create a new instance of the `Hamburglar::Report`
+class:
 
     # Check for fraud
     report = Hamburglar::Report.new(params)
     report.fraud?
+
+### MaxMind
+
+Hamburglar uses MaxMind's MinFraud API to generate reports.
+
+    report = Hamburglar::Report.new(
+      :i             => '192.168.1.1',
+      :city          => 'Funland',
+      :region        => 'US',
+      :postal        => '12345',
+      :country       => 'US',
+      :bin           => '12345',
+      :domain        => 'example.com',
+      :binName       => 'Happy Meal Bank',
+      :cust_phone    => '+18004445555',
+      :email_address => 'test@example.com'
+    )
+
+## Supported APIs
+
+* [MaxMind MinFraud](http://www.maxmind.com/app/ccv/)
 
 ## Note on Patches/Pull Requests
 
