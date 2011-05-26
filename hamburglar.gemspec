@@ -3,10 +3,11 @@ $:.unshift 'lib'
 require 'hamburglar/version'
 
 Gem::Specification.new do |s|
+  s.platform         = Gem::Platform::RUBY
   s.name             = 'hamburglar'
   s.version          = Hamburglar::Version
   s.date             = Time.now.strftime('%Y-%m-%d')
-  s.summary          = 'Hamburglar: Description here'
+  s.summary          = 'Hamburglar helps you prevent fraudulent orders'
   s.homepage         = 'https://github.com/site5/hamburglar'
   s.authors          = ['Joshua Priddle']
   s.email            = 'jpriddle@site5.com'
@@ -15,8 +16,6 @@ Gem::Specification.new do |s|
   s.files           += Dir['lib/**/*']
   s.files           += Dir['test/**/*']
 
-  # s.add_dependency('gem', '= 0.0.0')
-
   s.add_development_dependency('rspec', '~> 2.6')
   s.add_development_dependency('rake',  '~> 0.8.7')
   s.add_development_dependency('fakeweb', '~> 1.3.0')
@@ -24,7 +23,5 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.markdown']
   s.rdoc_options     = ["--charset=UTF-8"]
 
-  s.description = <<-DESC
-    Hamburglar: Description here
-  DESC
+  s.description = "Hamburglar helps you prevent fraudulent orders"
 end
