@@ -87,7 +87,7 @@ module Hamburglar
         data = raw.to_s.split(';').map do |line|
           key, val = line.split('=')
           if key.to_s != "" && val.to_s != ""
-            [key, val]
+            [key.to_sym, val]
           else
             next
           end

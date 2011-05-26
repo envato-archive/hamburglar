@@ -129,8 +129,8 @@ describe Hamburglar::Gateways::Base do
 
     it "has keys/values from data" do
       1.upto(3) do |i|
-        @hash.should have_key "key#{i}"
-        @hash["key#{i}"].should == "val#{i}"
+        @hash.should have_key :"key#{i}"
+        @hash[:"key#{i}"].should == "val#{i}"
       end
     end
 
