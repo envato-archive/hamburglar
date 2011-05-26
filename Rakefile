@@ -9,6 +9,26 @@ rescue LoadError
 end
 
 begin
+  require 'metric_fu'
+  MetricFu::Configuration.run do |config|
+    config.rcov[:rcov_opts] << "-Ispec"
+  end
+rescue LoadError
+  # puts "Can't find metric_fu"
+end
+
+begin
+  require 'rcov'
+  desc  "Run all specs with rcov"
+  RSpec::Core::RakeTask.new(:rcov) do |t|
+    t.rcov = true
+    t.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/}
+  end
+rescue LoadError
+  # puts "Can't find rcov"
+end
+
+begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new :spec
 rescue LoadError
