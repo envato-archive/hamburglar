@@ -57,10 +57,9 @@ module Hamburglar
               @errors[:missing_parameters] << @param
             end
           end
+          @validated = true
         end
         @errors[:missing_parameters].empty?
-      ensure
-        @validated = true
       end
       alias_method :valid?, :validate
 
