@@ -1,5 +1,9 @@
 module Hamburglar
   module Gateways
+    # The Hamburglar::Gateways::FraudGuardian class handles fraud verification
+    # through FraudGuardian's API.
+    #
+    # See: http://www.modernbill.com/products/fraudguardian/api/
     class FraudGuardian < Base
       PARAMS = [
         :i,
