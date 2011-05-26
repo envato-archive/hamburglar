@@ -5,7 +5,7 @@ module Hamburglar
   autoload :Report,   'hamburglar/report'
   autoload :Gateways, 'hamburglar/gateways'
 
-  GATEWAYS = [:max_mind, :fraud_guardian].freeze
+  GATEWAYS = [:max_mind].freeze
 
   class << self
     # The current gateway
@@ -22,4 +22,6 @@ module Hamburglar
     end
     @gateway = gateway
   end
+
+  self.gateway = :max_mind
 end
