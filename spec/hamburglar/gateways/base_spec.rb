@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Hamburglar::Gateways::Base do
   before :each do
-    Hamburglar.gateway = :max_mind
     @gateway = Hamburglar::Gateways::Base.new(:foo => :bar)
   end
 
@@ -29,13 +28,12 @@ describe Hamburglar::Gateways::Base do
 
   describe "::required_params" do
     it "returns @required_params without arguments" do
-      Hamburglar::Gateways::Base.required_params.should == []
+      require_params.should == []
     end
 
     it "sets @required_params with arguments" do
-      Hamburglar::Gateways::Base.required_params :one, :two, :three
-      Hamburglar::Gateways::Base.required_params.should ==
-        [:one, :two, :three]
+      require_params :one, :two, :three
+      require_params.should == [:one, :two, :three]
     end
   end
 
@@ -79,17 +77,17 @@ describe Hamburglar::Gateways::Base do
 
   describe "#validate" do
     it "returns false if required_params aren't set" do
-      Hamburglar::Gateways::Base.required_params :one, :two
+      require_params :one, :two
       @gateway.validate.should == false
     end
 
     it "returns true if required_params are set" do
-      Hamburglar::Gateways::Base.required_params :foo
+      require_params :foo
       @gateway.validate.should == true
     end
 
     it "adds missing params to @errors[:missing_parameters]" do
-      Hamburglar::Gateways::Base.required_params :one, :two
+      require_params :one, :two
       @gateway.validate
       missing = @gateway.errors[:missing_parameters]
       missing.should be_an Array
@@ -103,7 +101,7 @@ describe Hamburglar::Gateways::Base do
 
     describe "revalidation" do
       before :each do
-        Hamburglar::Gateways::Base.required_params :one, :two
+        require_params :one, :two
       end
 
       it "happens when #validate(true) is called" do
@@ -127,7 +125,7 @@ describe Hamburglar::Gateways::Base do
 
   describe "#validate!" do
     it "raises InvalidRequest if validation fails" do
-      Hamburglar::Gateways::Base.required_params :one, :two
+      require_params :one, :two
       expect { @gateway.validate! }.to raise_error Hamburglar::InvalidRequest
     end
   end
