@@ -76,6 +76,25 @@ module Hamburglar
 
         # Code to perform HTTP Request here
       end
+
+      # Parses raw data returned from an API call
+      #
+      # This method should be overwritten by any API subclasses that
+      # return data in a different format
+      #
+      # Returns [Hash]
+      def parse_response(raw = '')
+        data = raw.to_s.split(';').map do |line|
+          key, val = line.split('=')
+          if key.to_s != "" && val.to_s != ""
+            [key, val]
+          else
+            next
+          end
+        end
+        Hash[data]
+      end
+
     end
   end
 end

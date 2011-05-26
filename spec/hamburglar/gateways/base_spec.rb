@@ -116,4 +116,26 @@ describe Hamburglar::Gateways::Base do
       Hamburglar::Gateways::Base.new.submit!.should == false
     end
   end
+
+  describe "#parse_response" do
+    before :each do
+      data = %{key1=val1;key2=val2;key3=val3;}
+      @hash = @gateway.parse_response(data)
+    end
+
+    it "returns a hash" do
+      @hash.should be_a Hash
+    end
+
+    it "has keys/values from data" do
+      1.upto(3) do |i|
+        @hash.should have_key "key#{i}"
+        @hash["key#{i}"].should == "val#{i}"
+      end
+    end
+
+    it "handles invalid input" do
+      @gateway.parse_response('foo=;=bar;==;;').should == {}
+    end
+  end
 end
