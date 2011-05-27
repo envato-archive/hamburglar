@@ -39,13 +39,13 @@ describe Hamburglar::Gateways::Base do
 
   describe "::api_url" do
     it "gets and sets @api_url with an argument" do
-      Hamburglar::Gateways::Base.api_url "http://example.com"
-      Hamburglar::Gateways::Base.api_url.should == "http://example.com"
+      @gateway.class.api_url "http://example.com"
+      @gateway.class.api_url.should == "http://example.com"
     end
 
     it "raises InvalidURL when setting an invalid URL" do
       expect {
-        Hamburglar::Gateways::Base.api_url "i'm not a url!"
+        @gateway.class.api_url "i'm not a url!"
       }.to raise_error(Hamburglar::InvalidURL)
     end
   end
@@ -62,6 +62,10 @@ describe Hamburglar::Gateways::Base do
         @gateway.instance_variable_get("@#{var}").should == {}
       end
     end
+  end
+
+  describe "#optional_params" do
+    it { @gateway.optional_params.should be_an Array }
   end
 
   %w[params errors response].each do |attr|
@@ -137,8 +141,8 @@ describe Hamburglar::Gateways::Base do
 
     it "returns the HTTP data" do
       mock_request('http://example.com/foo/bar?foo=bar', :status => ['200', 'OK'], :body => 'key1=val1;key2=val2')
-      Hamburglar::Gateways::Base.api_url 'http://example.com/foo/bar'
-      Hamburglar::Gateways::Base.required_params :foo
+      @gateway.class.api_url 'http://example.com/foo/bar'
+      @gateway.class.required_params :foo
       res = @gateway.submit
       res.should be_a Hash
       res.should have(2).items

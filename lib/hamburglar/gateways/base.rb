@@ -104,6 +104,11 @@ module Hamburglar
         Hash[data]
       end
 
+      # Optional parameters that may be present in a query
+      def optional_params
+        []
+      end
+
       private
 
       # Performs a GET request on the given URI, redirects if needed
