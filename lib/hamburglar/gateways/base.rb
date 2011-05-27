@@ -20,7 +20,7 @@ module Hamburglar
       attr_reader :response
 
       def initialize(params = {})
-        @params   = params
+        @params   = params.merge(Hamburglar.credentials || {})
         @errors   = {}
         @response = {}
       end

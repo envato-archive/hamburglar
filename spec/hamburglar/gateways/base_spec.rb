@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Hamburglar::Gateways::Base do
   before :each do
+    Hamburglar.credentials = { :username => 'bob' }
     @gateway = Hamburglar::Gateways::Base.new(:foo => :bar)
   end
 
@@ -51,10 +52,17 @@ describe Hamburglar::Gateways::Base do
   end
 
   describe "#initialize" do
-    it "sets @params" do
-      p = @gateway.instance_variable_get(:@params)
-      p.should be_a Hash
-      p.should have_key :foo
+    describe "sets @params" do
+      before :each do
+        @params = @gateway.instance_variable_get(:@params)
+      end
+      it { @params.should be_a Hash }
+      it { @params.should have_key :foo }
+      it "merges Hamburglar.credentials" do
+        Hamburglar.credentials.keys.each do |key|
+          @params.should have_key key
+        end
+      end
     end
 
     %w[errors response].each do |var|
@@ -140,7 +148,7 @@ describe Hamburglar::Gateways::Base do
     end
 
     it "returns the HTTP data" do
-      mock_request('http://example.com/foo/bar?foo=bar', :status => ['200', 'OK'], :body => 'key1=val1;key2=val2')
+      mock_request('http://example.com/foo/bar?foo=bar&username=bob', :status => ['200', 'OK'], :body => 'key1=val1;key2=val2')
       @gateway.class.api_url 'http://example.com/foo/bar'
       @gateway.class.required_params :foo
       res = @gateway.submit
@@ -151,7 +159,7 @@ describe Hamburglar::Gateways::Base do
 
   describe "#query_string" do
     it "formats @params into a string for URL submission" do
-      @gateway.instance_eval { query_string }.should == 'foo=bar'
+      @gateway.instance_eval { query_string }.should include 'foo=bar'
     end
     it "rejects invalid params"
   end
