@@ -45,7 +45,7 @@ describe Hamburglar::Gateways::Base do
 
     it "raises InvalidURL when setting an invalid URL" do
       expect {
-        Hamburglar::Gateways::MaxMind.api_url "i'm not a url!"
+        Hamburglar::Gateways::Base.api_url "i'm not a url!"
       }.to raise_error(Hamburglar::InvalidURL)
     end
   end
