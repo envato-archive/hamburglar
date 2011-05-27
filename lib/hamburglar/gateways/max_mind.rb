@@ -8,40 +8,41 @@ module Hamburglar
       #
       # See: http://www.maxmind.com/app/ccv
       class MinFraud < Base
-        PARAMS = [
-          :i,
-          :city,
-          :region,
-          :postal,
-          :country,
-          :license_key,
-          :domain,
-          :bin,
-          :binName,
-          :binPhone,
-          :custPhone,
-          :requested_type,
-          :forwardedIP,
-          :emailMD5,
-          :usernameMD5,
-          :passwordMD5,
-          :shipAddr,
-          :shipCity,
-          :shipRegion,
-          :shipPostal,
-          :shipCountry,
-          :textID,
-          :sessionID,
-          :user_agent,
-          :accept_language
-        ].freeze
-
         # The MaxMind API URL
-        # TODO: Switch to https
-        api_url "http://minfraud2.maxmind.com/app/ccv2r"
+        api_url "https://minfraud2.maxmind.com/app/ccv2r"
 
         # Required parameters for a MaxMind API call
         required_params :i, :city, :region, :postal, :country, :license_key
+
+        def optional_params
+          [
+            :i,
+            :city,
+            :region,
+            :postal,
+            :country,
+            :license_key,
+            :domain,
+            :bin,
+            :binName,
+            :binPhone,
+            :custPhone,
+            :requested_type,
+            :forwardedIP,
+            :emailMD5,
+            :usernameMD5,
+            :passwordMD5,
+            :shipAddr,
+            :shipCity,
+            :shipRegion,
+            :shipPostal,
+            :shipCountry,
+            :textID,
+            :sessionID,
+            :user_agent,
+            :accept_language
+          ].freeze
+        end
       end
 
       class TelephoneVerification < Base

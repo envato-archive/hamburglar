@@ -2,20 +2,24 @@ require 'spec_helper'
 
 describe Hamburglar::Gateways::MaxMind do
   describe "::MinFraud" do
-    describe "::PARAMS" do
-      it { Hamburglar::Gateways::MaxMind::MinFraud::PARAMS.should be_an Array }
-      it { Hamburglar::Gateways::MaxMind::MinFraud::PARAMS.should be_frozen }
+    before :each do
+      @min_fraud = Hamburglar::Gateways::MaxMind::MinFraud.new
+    end
+
+    describe "#optional_params" do
+      it { @min_fraud.optional_params.should be_an Array }
+      it { @min_fraud.optional_params.should be_frozen }
     end
 
     describe "::required_params" do
       [:i, :city, :region, :postal, :country, :license_key].each do |p|
-        it { Hamburglar::Gateways::MaxMind::MinFraud.required_params.should include p }
+        it { @min_fraud.class.required_params.should include p }
       end
     end
 
     describe "::api_url" do
       reg = Hamburglar::Gateways::Base::URL_REGEX
-      it { Hamburglar::Gateways::MaxMind::MinFraud.api_url.should match reg }
+      it { @min_fraud.class.api_url.should match reg }
     end
   end
 
