@@ -81,6 +81,16 @@ module Hamburglar
         end
       end
 
+      # Optional parameters that *may* be present in a query
+      #
+      # This method should be overridden by classes than inherit from
+      # Hamburglar::Gateways::Base
+      def optional_params
+        []
+      end
+
+      private
+
       # Formats @params into a query string for an HTTP GET request
       def query_string
         @params.map { |key, val| "#{key}=#{CGI.escape(val.to_s)}" }.join('&')
@@ -103,13 +113,6 @@ module Hamburglar
         end
         Hash[data]
       end
-
-      # Optional parameters that may be present in a query
-      def optional_params
-        []
-      end
-
-      private
 
       # Performs a GET request on the given URI, redirects if needed
       #

@@ -151,7 +151,7 @@ describe Hamburglar::Gateways::Base do
 
   describe "#query_string" do
     it "formats @params into a string for URL submission" do
-      @gateway.query_string.should == 'foo=bar'
+      @gateway.instance_eval { query_string }.should == 'foo=bar'
     end
     it "rejects invalid params"
   end
@@ -159,7 +159,7 @@ describe Hamburglar::Gateways::Base do
   describe "#parse_response" do
     before :each do
       data = %{key1=val1;key2=val2;key3=val3;}
-      @hash = @gateway.parse_response(data)
+      @hash = @gateway.instance_eval { parse_response(data) }
     end
 
     it "returns a hash" do
@@ -174,7 +174,7 @@ describe Hamburglar::Gateways::Base do
     end
 
     it "handles invalid input" do
-      @gateway.parse_response('foo=;=bar;==;;').should == {}
+      @gateway.instance_eval { parse_response('foo=;=bar;==;;') }.should == {}
     end
   end
 end
