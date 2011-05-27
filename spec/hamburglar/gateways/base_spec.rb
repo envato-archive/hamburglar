@@ -19,11 +19,9 @@ describe Hamburglar::Gateways::Base do
     end
 
     it "should not match non-urls" do
-      "i am not a url".should_not match reg
-      "ftp://foo.bar/baz".should_not match reg
-      "git://foo.bar/baz".should_not match reg
-      "http://".should_not match reg
-      "https://".should_not match reg
+      ['i am not a url', 'ftp://example.com', 'git://example.com', 'http://', 'https://'].each do |url|
+        url.should_not match reg
+      end
     end
   end
 
