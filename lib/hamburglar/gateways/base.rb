@@ -1,3 +1,5 @@
+require 'cgi'
+
 module Hamburglar
   module Gateways
     # Hamburglar::Gateways::Base is the main class that handles sending API
@@ -73,8 +75,11 @@ module Hamburglar
       # Submit a request upstream to generate a fraud report
       def submit
         return false unless valid?
+      end
 
-        # Code to perform HTTP Request here
+      # Formats @params into a query string for an HTTP GET request
+      def query_string
+        @params.map { |key, val| "#{key}=#{CGI.escape(val.to_s)}" }.join('&')
       end
 
       # Parses raw data returned from an API call

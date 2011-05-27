@@ -136,6 +136,13 @@ describe Hamburglar::Gateways::Base do
     end
   end
 
+  describe "#query_string" do
+    it "formats @params into a string for URL submission" do
+      @gateway.query_string.should == 'foo=bar'
+    end
+    it "rejects invalid params"
+  end
+
   describe "#parse_response" do
     before :each do
       data = %{key1=val1;key2=val2;key3=val3;}
