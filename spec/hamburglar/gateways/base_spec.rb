@@ -134,6 +134,15 @@ describe Hamburglar::Gateways::Base do
     it "returns false if validate returns false" do
       Hamburglar::Gateways::Base.new.submit.should == false
     end
+
+    it "returns the HTTP data" do
+      mock_request('http://example.com/foo/bar?foo=bar', :status => ['200', 'OK'], :body => 'key1=val1;key2=val2')
+      Hamburglar::Gateways::Base.api_url 'http://example.com/foo/bar'
+      Hamburglar::Gateways::Base.required_params :foo
+      res = @gateway.submit
+      res.should be_a Hash
+      res.should have(2).items
+    end
   end
 
   describe "#query_string" do

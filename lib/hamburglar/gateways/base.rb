@@ -1,3 +1,4 @@
+require 'net/https'
 require 'cgi'
 
 module Hamburglar
@@ -51,7 +52,6 @@ module Hamburglar
       # Returns false if a parameter isn't set
       def validate(revalidate = false)
         @validated = false if revalidate
-
         unless @validated
           @errors[:missing_parameters] = []
           self.class.required_params.each do |req|
@@ -75,6 +75,10 @@ module Hamburglar
       # Submit a request upstream to generate a fraud report
       def submit
         return false unless valid?
+        url = "#{self.class.api_url}?#{query_string}"
+        if res = fetch(url)
+          @response = parse_response(res.body)
+        end
       end
 
       # Formats @params into a query string for an HTTP GET request
@@ -98,6 +102,25 @@ module Hamburglar
           end
         end
         Hash[data]
+      end
+
+      private
+
+      # Performs a GET request on the given URI, redirects if needed
+      #
+      # See Following Redirection at
+      # http://ruby-doc.org/stdlib/libdoc/net/http/rdoc/classes/Net/HTTP.html
+      def fetch(uri_str, limit = 10)
+        # You should choose better exception.
+        raise ArgumentError, 'HTTP redirect too deep' if limit == 0
+
+        response = Net::HTTP.get_response(URI.parse(uri_str))
+        case response
+        when Net::HTTPSuccess     then response
+        when Net::HTTPRedirection then fetch(response['location'], limit - 1)
+        else
+          response.error!
+        end
       end
 
     end
