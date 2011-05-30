@@ -22,9 +22,13 @@ class:
 
 ### MaxMind
 
-Hamburglar uses MaxMind's MinFraud API to generate reports.
+Hamburglar supports MaxMind's minFraud and Telephone Verification APIs.
+By default, reports will use the minFraud API.
+
+**Generate a fraud report using minFraud**
 
     report = Hamburglar::Report.new(
+      :license_key   => 's3cr3tz',
       :i             => '192.168.1.1',
       :city          => 'Funland',
       :region        => 'US',
@@ -37,9 +41,30 @@ Hamburglar uses MaxMind's MinFraud API to generate reports.
       :email_address => 'test@example.com'
     )
 
+**Generate a fraud report using Telephone Verification**
+
+    report = Hamburglar::Report.new(
+      :gateway     => :max_mind_telephone,
+      :license_key => 's3cr3tz',
+      :phone       => '+18004445555'
+    )
+
+## Optional Configuration
+
+You may optionally configure the default gateway and credentials
+Hamburglar will use. For example, in a Rails app where you always
+used minFraud, you can add the following to
+`config/initializers/hamburglar.rb`:
+
+    Hamburglar.configure do |config|
+      config.gateway     = :max_mind_min_fraud
+      config.credentials = { :license_key => 's3cr3tz' }
+    end
+
 ## Supported APIs
 
 * [MaxMind MinFraud](http://www.maxmind.com/app/ccv/)
+* [MaxMind Telephone Verification](http://www.maxmind.com/app/telephone_api)
 
 ## Note on Patches/Pull Requests
 
@@ -47,9 +72,8 @@ Hamburglar uses MaxMind's MinFraud API to generate reports.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a future version
   unintentionally.
-* Commit, do not mess with Rakefile, version, or history. (If you want to have
-  your own version, that is fine but bump version in a commit by itself I can
-  ignore when I pull)
+* Commit, do not bump version. (If you want to have your own version, that is
+  fine but bump version in a commit by itself I can ignore when I pull.)
 * Send me a pull request. Bonus points for topic branches.
 
 ## Copyright
