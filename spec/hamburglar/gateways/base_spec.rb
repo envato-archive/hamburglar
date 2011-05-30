@@ -163,14 +163,14 @@ describe Hamburglar::Gateways::Base do
     end
   end
 
-  describe "#query_string" do
+  describe "#query_string (private)" do
     it "formats @params into a string for URL submission" do
-      @gateway.instance_eval { query_string }.should include 'foo=bar'
+      @gateway.instance_eval('query_string').should include 'foo=bar'
     end
     it "rejects invalid params"
   end
 
-  describe "#parse_response" do
+  describe "#parse_response (private)" do
     before :each do
       data = %{key1=val1;key2=val2;key3=val3;}
       @hash = @gateway.instance_eval { parse_response(data) }
