@@ -22,8 +22,8 @@ describe Hamburglar do
 
   describe "::gateway" do
     it "sets and gets the gateway" do
-      Hamburglar.gateway = :max_mind
-      Hamburglar.gateway.should == :max_mind
+      Hamburglar.gateway = :max_mind_min_fraud
+      Hamburglar.gateway.should == :max_mind_min_fraud
     end
 
     it "raises InvalidGateway when assigned an invalid gateway" do
