@@ -2,6 +2,7 @@ require 'hamburglar/errors'
 
 module Hamburglar
   autoload :Version,  'hamburglar/version'
+  autoload :Config,   'hamburglar/config'
   autoload :Report,   'hamburglar/report'
   autoload :Gateways, 'hamburglar/gateways'
 

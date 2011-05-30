@@ -9,6 +9,18 @@ def should_require_params(*params)
   @gateway.class.required_params.should == params
 end
 
+def should_be_attr_accessor(key, obj)
+  describe "attr_accessor :#{key}" do
+    it { obj.should respond_to "#{key}=".to_sym }
+    it { obj.should respond_to key.to_sym }
+    it "gets and sets @#{key}" do
+      obj.send("#{key}=", 'foobar')
+      obj.send(key).should == 'foobar'
+      obj.send(key).should == obj.instance_variable_get("@#{key}")
+    end
+  end
+end
+
 def mock_request(url, options = {})
   FakeWeb.register_uri(:get, url, options)
 end
