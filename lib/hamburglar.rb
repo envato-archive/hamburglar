@@ -9,20 +9,13 @@ module Hamburglar
   GATEWAYS = [:max_mind_min_fraud, :max_mind_telephone].freeze
 
   class << self
-    # The current gateway
-    attr_reader :gateway
-
-    # Authorization credentials for the gateway in use
-    attr_accessor :credentials
+    attr_accessor :config
   end
 
-  # Set the gateway to be used for fraud reports
-  def self.gateway=(gateway)
-    unless GATEWAYS.include? gateway
-      raise InvalidGateway, gateway
-    end
-    @gateway = gateway
+  def self.configure
+    yield config if block_given?
+    config
   end
 
-  self.gateway = :max_mind_min_fraud
+  self.config = Config.new
 end

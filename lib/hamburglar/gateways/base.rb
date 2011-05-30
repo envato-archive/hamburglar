@@ -25,7 +25,7 @@ module Hamburglar
       end
 
       def initialize(params = {})
-        @params   = params.merge(Hamburglar.credentials || {})
+        @params   = params.merge(Hamburglar.config.credentials || {})
         @errors   = {}
         @response = {}
       end

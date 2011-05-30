@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe Hamburglar::Gateways::Base do
   before :each do
-    Hamburglar.credentials = { :username => 'bob' }
+    Hamburglar.configure do |c|
+      c.gateway     = :max_mind_min_fraud
+      c.credentials = { :username => 'bob' }
+    end
     @gateway = Hamburglar::Gateways::Base.new(:foo => :bar)
     @gateway.class.set_api_url "http://example.com"
   end
@@ -65,7 +68,7 @@ describe Hamburglar::Gateways::Base do
       it { @params.should be_a Hash }
       it { @params.should have_key :foo }
       it "merges Hamburglar.credentials" do
-        Hamburglar.credentials.keys.each do |key|
+        Hamburglar.config.credentials.keys.each do |key|
           @params.should have_key key
         end
       end

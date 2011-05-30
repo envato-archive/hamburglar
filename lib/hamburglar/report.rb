@@ -5,7 +5,7 @@ module Hamburglar
     attr_reader :params
 
     def initialize(params = {})
-      @gateway = params.delete(:gateway) || Hamburglar.gateway
+      @gateway = params.delete(:gateway) || Hamburglar.config.gateway
       @params  = params
       @report  = generate_report!
     end

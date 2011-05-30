@@ -7,27 +7,17 @@ describe Hamburglar do
     end
   end
 
-  describe "::credentials" do
-    it "sets and gets the credentials" do
-      Hamburglar.credentials = { :foo => 'foo' }
-      Hamburglar.credentials.should be_a Hash
-      Hamburglar.credentials.should have_key :foo
-    end
-  end
-
   describe "::GATEWAYS" do
     it { Hamburglar::GATEWAYS.should be_a Array }
     it { Hamburglar::GATEWAYS.should be_frozen  }
   end
 
-  describe "::gateway" do
-    it "sets and gets the gateway" do
-      Hamburglar.gateway = :max_mind_min_fraud
-      Hamburglar.gateway.should == :max_mind_min_fraud
-    end
-
-    it "raises InvalidGateway when assigned an invalid gateway" do
-      expect { Hamburglar.gateway = :foo }.to raise_error Hamburglar::InvalidGateway
-    end
+  describe "::configure" do
+    it { Hamburglar.configure.should be_a Hamburglar::Config }
   end
+
+  describe "::config" do
+    should_be_attr_accessor :config, Hamburglar
+  end
+
 end
