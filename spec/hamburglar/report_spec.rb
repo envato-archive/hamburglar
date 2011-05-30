@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Hamburglar::Report do
   before :each do
-    Hamburglar.gateway = :max_mind
+    Hamburglar.gateway = :max_mind_min_fraud
     @report = Hamburglar::Report.new(:foo => :bar)
   end
 
@@ -12,6 +12,10 @@ describe Hamburglar::Report do
       p.should be_a Hash
       p.should have_key :foo
     end
+
+    it "sets @report" do
+      @report.instance_variable_get(:@report).should be_a Hash
+    end
   end
 
   describe "#params" do
@@ -20,6 +24,25 @@ describe Hamburglar::Report do
       raw_params = @report.instance_variable_get(:@params)
       raw_params.should == @report.params
     end
+  end
+
+  describe "#gateway (private)" do
+    it "returns the current gateway" do
+      @report.instance_eval('gateway').should ==
+        Hamburglar::Gateways::MaxMind::MinFraud
+
+      @report.instance_variable_set(:@gateway, :max_mind_telephone)
+
+      @report.instance_eval('gateway').should ==
+        Hamburglar::Gateways::MaxMind::TelephoneVerification
+    end
+  end
+
+  describe "#generate_report! (private)" do
+    before :each do
+      @raw = @report.instance_eval('generate_report!')
+    end
+    it { @raw.should be_a Hash }
   end
 
   describe "#fraud?" do
