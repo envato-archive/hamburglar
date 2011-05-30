@@ -15,7 +15,17 @@ describe Hamburglar::Config do
     end
   end
 
-  %w[gateway credentials].each do |key|
-    should_be_attr_accessor key.to_sym, Hamburglar::Config.new
+  should_be_attr_accessor :credentials, Hamburglar::Config.new
+  should_be_attr_reader :gateway, Hamburglar::Config.new
+
+  describe "#gateway=" do
+    it "sets the gateway" do
+      @config.gateway = :max_mind_telephone
+      @config.gateway.should == :max_mind_telephone
+    end
+
+    it "raises InvalidGateway when assigned an invalid gateway" do
+      expect { @config.gateway = :foo }.to raise_error Hamburglar::InvalidGateway
+    end
   end
 end

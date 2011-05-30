@@ -11,12 +11,26 @@ end
 
 def should_be_attr_accessor(key, obj)
   describe "attr_accessor :#{key}" do
-    it { obj.should respond_to "#{key}=".to_sym }
+    should_be_attr_reader key, obj
+    should_be_attr_writer key, obj
+  end
+end
+
+def should_be_attr_reader(key, obj)
+  describe "attr_reader :#{key}" do
     it { obj.should respond_to key.to_sym }
-    it "gets and sets @#{key}" do
-      obj.send("#{key}=", 'foobar')
-      obj.send(key).should == 'foobar'
+    it "gets @#{key}" do
       obj.send(key).should == obj.instance_variable_get("@#{key}")
+    end
+  end
+end
+
+def should_be_attr_writer(key, obj)
+  describe "attr_writer :#{key}" do
+    it { obj.should respond_to "#{key}=".to_sym }
+    it "sets @#{key}" do
+      obj.send("#{key}=", 'foobar')
+      obj.instance_variable_get("@#{key}").should == 'foobar'
     end
   end
 end
