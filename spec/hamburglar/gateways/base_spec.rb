@@ -4,7 +4,7 @@ describe Hamburglar::Gateways::Base do
   before :each do
     Hamburglar.credentials = { :username => 'bob' }
     @gateway = Hamburglar::Gateways::Base.new(:foo => :bar)
-    @gateway.class.api_url = "http://example.com"
+    @gateway.class.set_api_url "http://example.com"
   end
 
   describe "::URL_REGEX" do
@@ -44,15 +44,15 @@ describe Hamburglar::Gateways::Base do
     end
   end
 
-  describe "::api_url=" do
+  describe "::set_api_url=" do
     it "sets @api_url" do
-      @gateway.class.api_url = "http://example2.com"
+      @gateway.class.set_api_url "http://example2.com"
       @gateway.class.api_url.should == "http://example2.com"
     end
 
     it "raises InvalidURL when setting an invalid URL" do
       expect {
-        @gateway.class.api_url = "i'm not a url!"
+        @gateway.class.set_api_url "i'm not a url!"
       }.to raise_error(Hamburglar::InvalidURL)
     end
   end
@@ -155,7 +155,7 @@ describe Hamburglar::Gateways::Base do
 
     it "returns the HTTP data" do
       mock_request('http://example.com/foo/bar?foo=bar&username=bob', :status => ['200', 'OK'], :body => 'key1=val1;key2=val2')
-      @gateway.class.api_url = 'http://example.com/foo/bar'
+      @gateway.class.set_api_url 'http://example.com/foo/bar'
       should_require_params :foo
       res = @gateway.submit
       res.should be_a Hash

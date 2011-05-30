@@ -31,7 +31,7 @@ module Hamburglar
       end
 
       # Get or set the API URL for the gateway
-      def self.api_url=(url = '')
+      def self.set_api_url(url = '')
         if url.match URL_REGEX
           @api_url = url
         else
@@ -87,8 +87,10 @@ module Hamburglar
       #
       # This method should be overridden by classes than inherit from
       # Hamburglar::Gateways::Base
+      #
+      # Defaults to self.required_params
       def optional_params
-        []
+        self.class.required_params
       end
 
       private
