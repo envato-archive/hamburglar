@@ -63,10 +63,18 @@ describe Hamburglar::Gateways::Base do
       end
       it { @params.should be_a Hash }
       it { @params.should have_key :foo }
-      it "merges Hamburglar.credentials" do
+      it "merges Hamburglar.config.credentials" do
         Hamburglar.config.credentials.keys.each do |key|
           @params.should have_key key
         end
+      end
+
+      it "overwrites Hamburglar.config.credentials" do
+        gateway = Hamburglar::Gateways::Base.new(:foo => :bar, :username => 'the new bob')
+        gateway.class.set_api_url "http://example.com"
+        params = gateway.instance_variable_get(:@params)
+        params.should have_key :username
+        params[:username].should == 'the new bob'
       end
     end
 
