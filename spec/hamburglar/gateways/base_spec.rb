@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe Hamburglar::Gateways::Base do
   before :each do
-    Hamburglar.configure do |c|
-      c.gateway     = :max_mind_min_fraud
-      c.credentials = { :username => 'bob' }
-    end
     @gateway = Hamburglar::Gateways::Base.new(:foo => :bar)
     @gateway.class.set_api_url "http://example.com"
   end

@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Hamburglar::Report do
   before :each do
-    Hamburglar.config.gateway = :max_mind_min_fraud
     @report = Hamburglar::Report.new(:foo => :bar)
   end
 

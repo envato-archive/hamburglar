@@ -4,6 +4,15 @@ require 'hamburglar'
 
 FakeWeb.allow_net_connect = false
 
+RSpec.configure do |c|
+  c.before :each do
+    Hamburglar.configure do |c|
+      c.gateway     = :max_mind_min_fraud
+      c.credentials = { :username => 'bob' }
+    end
+  end
+end
+
 def should_require_params(*params)
   @gateway.class.set_required_params *params
   @gateway.class.required_params.should == params
