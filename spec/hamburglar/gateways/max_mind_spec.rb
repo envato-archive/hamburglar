@@ -24,6 +24,24 @@ describe Hamburglar::Gateways::MaxMind do
   end
 
   describe "::TelephoneVerification" do
-    it "has specs"
+    before :each do
+      @phone = Hamburglar::Gateways::MaxMind::TelephoneVerification.new
+    end
+
+    describe "#optional_params" do
+      it { @phone.optional_params.should be_an Array }
+      it { @phone.optional_params.should be_frozen }
+    end
+
+    describe "::required_params" do
+      [:l, :phone].each do |p|
+        it { @phone.class.required_params.should include p }
+      end
+    end
+
+    describe "::api_url" do
+      reg = Hamburglar::Gateways::Base::URL_REGEX
+      it { @phone.class.api_url.should match reg }
+    end
   end
 end

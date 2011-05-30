@@ -9,11 +9,12 @@ module Hamburglar
       # See: http://www.maxmind.com/app/ccv
       class MinFraud < Base
         # The MaxMind API URL
-        self.api_url = "https://minfraud2.maxmind.com/app/ccv2r"
+        set_api_url "https://minfraud2.maxmind.com/app/ccv2r"
 
-        # Required parameters for a MaxMind API call
+        # Required parameters for a minFraud API call
         set_required_params :i, :city, :region, :postal, :country, :license_key
 
+        # Optional parameters
         def optional_params
           [
             :i,
@@ -45,7 +46,21 @@ module Hamburglar
         end
       end
 
+      # The TelephoneVerification class handles fraud verification
+      # through MaxMind's Telephone Verification API
+      #
+      # See: http://www.maxmind.com/app/telephone_api
       class TelephoneVerification < Base
+        # The MaxMind Telephone Verification API URL
+        set_api_url "https://www.maxmind.com/app/telephone_http"
+
+        # Required parameters for a Telephone Verification API call
+        set_required_params :l, :phone
+
+        # Optional parameters
+        def optional_params
+          [:l, :phone, :verify_code].freeze
+        end
       end
 
     end
