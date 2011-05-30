@@ -9,6 +9,14 @@ rescue LoadError
 end
 
 begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new :spec
+rescue LoadError
+  puts "Please install rspec (bundle install)"
+  exit
+end
+
+begin
   require 'metric_fu'
   MetricFu::Configuration.run do |config|
     config.rcov[:rcov_opts] << "-Ispec"
@@ -26,14 +34,6 @@ begin
   end
 rescue LoadError
   # puts "Can't find rcov"
-end
-
-begin
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new :spec
-rescue LoadError
-  puts "Please install rspec (bundle install)"
-  exit
 end
 
 desc "Open an irb session preloaded with this library"
