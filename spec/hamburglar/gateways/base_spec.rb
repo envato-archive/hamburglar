@@ -4,6 +4,7 @@ describe Hamburglar::Gateways::Base do
   before :each do
     Hamburglar.credentials = { :username => 'bob' }
     @gateway = Hamburglar::Gateways::Base.new(:foo => :bar)
+    @gateway.class.api_url = "http://example.com"
   end
 
   describe "::URL_REGEX" do
@@ -27,26 +28,24 @@ describe Hamburglar::Gateways::Base do
 
   describe "::required_params" do
     it "returns @required_params without arguments" do
-      require_params.should == []
+      should_require_params
     end
 
     it "sets @required_params with arguments" do
-      require_params :one, :two, :three
-      require_params.should == [:one, :two, :three]
+      should_require_params :one, :two, :three
     end
   end
 
   describe "::api_url" do
     it "gets @api_url" do
-      @gateway.class.api_url = "http://example.com"
       @gateway.class.api_url.should == "http://example.com"
     end
   end
 
   describe "::api_url=" do
     it "sets @api_url" do
-      @gateway.class.api_url = "http://example.com"
-      @gateway.class.api_url.should == "http://example.com"
+      @gateway.class.api_url = "http://example2.com"
+      @gateway.class.api_url.should == "http://example2.com"
     end
 
     it "raises InvalidURL when setting an invalid URL" do
@@ -94,17 +93,17 @@ describe Hamburglar::Gateways::Base do
 
   describe "#validate" do
     it "returns false if required_params aren't set" do
-      require_params :one, :two
+      should_require_params :one, :two
       @gateway.validate.should == false
     end
 
     it "returns true if required_params are set" do
-      require_params :foo
+      should_require_params :foo
       @gateway.validate.should == true
     end
 
     it "adds missing params to @errors[:missing_parameters]" do
-      require_params :one, :two
+      should_require_params :one, :two
       @gateway.validate
       missing = @gateway.errors[:missing_parameters]
       missing.should be_an Array
@@ -118,7 +117,7 @@ describe Hamburglar::Gateways::Base do
 
     describe "revalidation" do
       before :each do
-        require_params :one, :two
+        should_require_params :one, :two
       end
 
       it "happens when #validate(true) is called" do
@@ -142,7 +141,7 @@ describe Hamburglar::Gateways::Base do
 
   describe "#validate!" do
     it "raises InvalidRequest if validation fails" do
-      require_params :one, :two
+      should_require_params :one, :two
       expect { @gateway.validate! }.to raise_error Hamburglar::InvalidRequest
     end
   end
