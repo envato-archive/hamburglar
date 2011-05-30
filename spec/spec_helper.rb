@@ -18,14 +18,14 @@ def should_require_params(*params)
   @gateway.class.required_params.should == params
 end
 
-def should_be_attr_accessor(key, obj)
+def should_be_attr_accessor(key, obj, val = 'foobar')
   describe "attr_accessor :#{key}" do
-    should_be_attr_reader key, obj
-    should_be_attr_writer key, obj
+    should_be_attr_reader key, obj, val
+    should_be_attr_writer key, obj, val
   end
 end
 
-def should_be_attr_reader(key, obj)
+def should_be_attr_reader(key, obj, val = 'foobar')
   describe "attr_reader :#{key}" do
     it { obj.should respond_to key.to_sym }
     it "gets @#{key}" do
@@ -34,12 +34,12 @@ def should_be_attr_reader(key, obj)
   end
 end
 
-def should_be_attr_writer(key, obj)
+def should_be_attr_writer(key, obj, val = 'foobar')
   describe "attr_writer :#{key}" do
     it { obj.should respond_to "#{key}=".to_sym }
     it "sets @#{key}" do
-      obj.send("#{key}=", 'foobar')
-      obj.instance_variable_get("@#{key}").should == 'foobar'
+      obj.send("#{key}=", val)
+      obj.instance_variable_get("@#{key}").should == val
     end
   end
 end

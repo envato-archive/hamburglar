@@ -17,7 +17,7 @@ describe Hamburglar do
   end
 
   describe "::config" do
-    should_be_attr_accessor :config, Hamburglar
+    should_be_attr_accessor :config, Hamburglar, Hamburglar::Config.new
   end
 
 end
