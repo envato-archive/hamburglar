@@ -126,7 +126,12 @@ module Hamburglar
         # You should choose better exception.
         raise ArgumentError, 'HTTP redirect too deep' if limit == 0
 
-        response = Net::HTTP.get_response(URI.parse(uri_str))
+        uri = URI.parse(uri_str)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = uri.scheme == 'https'
+        request = Net::HTTP::Get.new(uri.request_uri)
+        response = http.start { |http| http.request(request) }
+
         case response
         when Net::HTTPSuccess     then response
         when Net::HTTPRedirection then fetch(response['location'], limit - 1)
