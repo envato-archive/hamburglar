@@ -19,6 +19,11 @@ module Hamburglar
       # Response returned by an API call
       attr_reader :response
 
+      class << self
+        # The API URL
+        attr_reader :api_url
+      end
+
       def initialize(params = {})
         @params   = params.merge(Hamburglar.credentials || {})
         @errors   = {}
@@ -35,15 +40,11 @@ module Hamburglar
       end
 
       # Get or set the API URL for the gateway
-      def self.api_url(url = nil)
-        if url
-          if url.match URL_REGEX
-            @api_url = url
-          else
-            raise Hamburglar::InvalidURL, url
-          end
+      def self.api_url=(url = '')
+        if url.match URL_REGEX
+          @api_url = url
         else
-          @api_url ||= ""
+          raise Hamburglar::InvalidURL, url
         end
       end
 

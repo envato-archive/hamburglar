@@ -9,7 +9,7 @@ module Hamburglar
       # See: http://www.maxmind.com/app/ccv
       class MinFraud < Base
         # The MaxMind API URL
-        api_url "https://minfraud2.maxmind.com/app/ccv2r"
+        self.api_url = "https://minfraud2.maxmind.com/app/ccv2r"
 
         # Required parameters for a MaxMind API call
         required_params :i, :city, :region, :postal, :country, :license_key
