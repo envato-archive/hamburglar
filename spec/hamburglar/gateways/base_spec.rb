@@ -27,10 +27,12 @@ describe Hamburglar::Gateways::Base do
   end
 
   describe "::required_params" do
-    it "returns @required_params without arguments" do
+    it "returns @required_params" do
       should_require_params
+      @gateway.class.instance_variable_get(:@required_params).should be_a Array
     end
-
+  end
+  describe "::set_required_params" do
     it "sets @required_params with arguments" do
       should_require_params :one, :two, :three
     end
@@ -154,7 +156,7 @@ describe Hamburglar::Gateways::Base do
     it "returns the HTTP data" do
       mock_request('http://example.com/foo/bar?foo=bar&username=bob', :status => ['200', 'OK'], :body => 'key1=val1;key2=val2')
       @gateway.class.api_url = 'http://example.com/foo/bar'
-      @gateway.class.required_params :foo
+      should_require_params :foo
       res = @gateway.submit
       res.should be_a Hash
       res.should have(2).items

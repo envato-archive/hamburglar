@@ -30,15 +30,6 @@ module Hamburglar
         @response = {}
       end
 
-      # Get or set required parameters for this report
-      def self.required_params(*params)
-        if params.size > 0
-          @required_params = params
-        else
-          @required_params ||= []
-        end
-      end
-
       # Get or set the API URL for the gateway
       def self.api_url=(url = '')
         if url.match URL_REGEX
@@ -46,6 +37,16 @@ module Hamburglar
         else
           raise Hamburglar::InvalidURL, url
         end
+      end
+
+      # Set required parameters for an API call
+      def self.set_required_params(*params)
+        @required_params = params
+      end
+
+      # Required parameters for an API call
+      def self.required_params
+        @required_params || []
       end
 
       # Validate presence of required_params

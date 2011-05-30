@@ -12,7 +12,7 @@ module Hamburglar
         self.api_url = "https://minfraud2.maxmind.com/app/ccv2r"
 
         # Required parameters for a MaxMind API call
-        required_params :i, :city, :region, :postal, :country, :license_key
+        set_required_params :i, :city, :region, :postal, :country, :license_key
 
         def optional_params
           [
