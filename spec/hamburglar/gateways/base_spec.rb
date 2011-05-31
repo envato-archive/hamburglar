@@ -70,11 +70,11 @@ describe Hamburglar::Gateways::Base do
       end
 
       it "overwrites Hamburglar.config.credentials" do
-        gateway = Hamburglar::Gateways::Base.new(:foo => :bar, :username => 'the new bob')
+        gateway = Hamburglar::Gateways::Base.new(:foo => :bar, :license_key => 's3cretz')
         gateway.class.set_api_url "http://example.com"
         params = gateway.instance_variable_get(:@params)
-        params.should have_key :username
-        params[:username].should == 'the new bob'
+        params.should have_key :license_key
+        params[:license_key].should == 's3cretz'
       end
     end
 
@@ -163,7 +163,7 @@ describe Hamburglar::Gateways::Base do
     end
 
     it "returns the HTTP data" do
-      mock_request('http://example.com/foo/bar?foo=bar&username=bob', :status => ['200', 'OK'], :body => 'key1=val1;key2=val2')
+      mock_request('http://example.com/foo/bar?license_key=s3cretz&foo=bar', :status => ['200', 'OK'], :body => 'key1=val1;key2=val2')
       @gateway.class.set_api_url 'http://example.com/foo/bar'
       should_require_params :foo
       res = @gateway.submit
