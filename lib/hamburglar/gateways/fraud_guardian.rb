@@ -5,27 +5,27 @@ module Hamburglar
     #
     # See: http://www.modernbill.com/products/fraudguardian/api/
     class FraudGuardian < Base
-      PARAMS = [
-        :i,
-        :domain,
-        :city,
-        :region,
-        :postal,
-        :country,
-        :login,
-        :pass,
-        :do_whois,
-        :send_to,
-        :bin,
-        :output,
-        :email,
-        :do_map
-      ].freeze
+      set_api_url "https://www.fraudguardian.com"
 
-      required_params :i, :domain, :city, :region, :postal, :country, :login, :pass
+      set_required_params :i, :domain, :city, :region, :postal, :country, :login, :pass
 
-      def initialize
-        raise "FraudGuardian is not implemented yet"
+      def optional_params
+        [
+          :i,
+          :domain,
+          :city,
+          :region,
+          :postal,
+          :country,
+          :login,
+          :pass,
+          :do_whois,
+          :send_to,
+          :bin,
+          :output,
+          :email,
+          :do_map
+        ].freeze
       end
     end
   end
