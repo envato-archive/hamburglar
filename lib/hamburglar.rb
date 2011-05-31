@@ -6,7 +6,7 @@ module Hamburglar
   autoload :Report,   'hamburglar/report'
   autoload :Gateways, 'hamburglar/gateways'
 
-  GATEWAYS = [:max_mind_min_fraud, :max_mind_telephone].freeze
+  GATEWAYS = [:max_mind_min_fraud, :max_mind_telephone, :fraud_guardian].freeze
 
   class << self
     attr_accessor :config
