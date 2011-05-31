@@ -58,7 +58,7 @@ module Hamburglar
           @errors[:missing_parameters] = []
           self.class.required_params.each do |req|
             unless @params.has_key?(req)
-              @errors[:missing_parameters] << @param
+              @errors[:missing_parameters] << req
             end
           end
           @validated = true

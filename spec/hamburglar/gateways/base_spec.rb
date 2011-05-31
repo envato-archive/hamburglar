@@ -117,6 +117,8 @@ describe Hamburglar::Gateways::Base do
       missing = @gateway.errors[:missing_parameters]
       missing.should be_an Array
       missing.should have(2).items
+      missing.should include :one
+      missing.should include :two
     end
 
     it "ensures @validated is true when done" do
