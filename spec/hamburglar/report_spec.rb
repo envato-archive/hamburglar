@@ -47,4 +47,10 @@ describe Hamburglar::Report do
   describe "#fraud?" do
     it "returns true or false"
   end
+
+  describe "#[]" do
+    it "returns @report[key] if it exists", :pending => true do
+      @report[:distance].should_not be_nil
+    end
+  end
 end
