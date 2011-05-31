@@ -1,14 +1,22 @@
 require 'rspec'
+require 'vcr'
 require 'fakeweb'
 require 'hamburglar'
 
 FakeWeb.allow_net_connect = false
 
+VCR.config do |c|
+  c.default_cassette_options = { :record => :new_episodes }
+  c.cassette_library_dir     = 'spec/fixtures'
+  c.stub_with :fakeweb
+end
+
 RSpec.configure do |c|
+  c.extend VCR::RSpec::Macros
   c.before :each do
-    Hamburglar.configure do |c|
-      c.gateway     = :max_mind_min_fraud
-      c.credentials = { :username => 'bob' }
+    Hamburglar.configure do |config|
+      config.gateway     = :max_mind_min_fraud
+      config.credentials = { :license_key => 's3cretz' }
     end
   end
 end
