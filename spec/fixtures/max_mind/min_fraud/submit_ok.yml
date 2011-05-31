@@ -1,0 +1,26 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://minfraud2.maxmind.com:443/app/ccv2r?license_key=s3cretz&i=127.0.0.1&city=New+York&region=New+York&postal=12345&country=United+States&bin=12345&domain=gmail.com&binName=National+Bank&cust_phone=%2B12223334444&email_address=peter.parker%40gmail.com
+    body:
+    headers:
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Tue, 31 May 2011 18:02:07 GMT
+      server:
+      - Apache
+      content-type:
+      - text/plain
+      x-req-start:
+      - t=1306864927492831
+      x-req-proc:
+      - D=141741
+      transfer-encoding:
+      - chunked
+    body: distance=22;countryMatch=Yes;countryCode=US;freeMail=Yes;anonymousProxy=No;score=2.51;binMatch=NotFound;binCountry=;err=;proxyScore=0.00;ip_region=NY;ip_city=New York;ip_latitude=40.74;ip_longitude=-74.01;binName=;ip_isp=FOOBAR COMMUNICATIONS;ip_org=FOOBAR COMMUNICATIONS;binNameMatch=NA;binPhoneMatch=NA;binPhone=;custPhoneInBillingLoc=NotFound;highRiskCountry=No;queriesRemaining=9999;cityPostalMatch=No;shipCityPostalMatch=;maxmindID=MAXMINDID;riskScore=0.1;explanation=This order is slightly risky, and we suggest that you review it manually, especially for B2B transactions. The order is slightly riskier because the e-mail domain, gmail.com, is a free e-mail provider
+    http_version: "1.1"

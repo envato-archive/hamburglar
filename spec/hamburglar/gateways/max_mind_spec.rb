@@ -21,6 +21,25 @@ describe Hamburglar::Gateways::MaxMind do
       reg = Hamburglar::Gateways::Base::URL_REGEX
       it { @min_fraud.class.api_url.should match reg }
     end
+
+    describe "#submit" do
+      describe "with invalid license key" do
+        use_vcr_cassette "max_mind/min_fraud/submit_invalid_license_key"
+        it "returns an error" do
+          min = Hamburglar::Gateways::MaxMind::MinFraud.new(MinFraudTest.params)
+          min.submit
+          min.response[:err].should match /INVALID_LICENSE/
+        end
+      end
+      describe "with valid params" do
+        use_vcr_cassette "max_mind/min_fraud/submit_ok"
+        it "returns the fraud report hash" do
+          min = Hamburglar::Gateways::MaxMind::MinFraud.new(MinFraudTest.params)
+          min.submit
+          min.response[:distance].should_not be_nil
+        end
+      end
+    end
   end
 
   describe "::TelephoneVerification" do
