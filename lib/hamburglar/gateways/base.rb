@@ -128,7 +128,11 @@ module Hamburglar
 
         uri = URI.parse(uri_str)
         http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = uri.scheme == 'https'
+        if uri.scheme == 'https'
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          http.ca_file = File.expand_path('../../../cacert.pem', __FILE__)
+        end
         request = Net::HTTP::Get.new(uri.request_uri)
         response = http.start { |http| http.request(request) }
 
