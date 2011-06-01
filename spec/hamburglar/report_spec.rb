@@ -52,21 +52,33 @@ describe Hamburglar::Report do
   end
 
   describe "#fraud?" do
-    describe "calls Hamburglar.config.fraud_proc" do
-      it "returns true" do
-        Hamburglar.configure { |c| c.fraud_proc = Proc.new { true } }
-        @report.fraud?.should == true
-      end
+    it "returns true if report.score is >= than config.score" do
+      @report.instance_eval { @response = { :score => 10 } }
+      @report.fraud?.should == true
+    end
 
-      it "returns false" do
-        Hamburglar.configure { |c| c.fraud_proc = Proc.new { false } }
-        @report.fraud?.should == false
-      end
+    it "returns false if report.score is < than config.score" do
+      @report.instance_eval { @response = { :score => 1 } }
+      @report.fraud?.should == false
+    end
 
-      it "sets @fraud" do
-        Hamburglar.configure { |c| c.fraud_proc = Proc.new { false } }
-        @report.fraud?.should == @report.instance_variable_get(:@fraud)
-      end
+    it "returns true if @response is nil" do
+      @report.instance_eval { @response = nil }
+      @report.fraud?.should == true
+    end
+
+    it "evaluates a true block" do
+      @report.instance_eval { @response = { :score => 1 } }
+      @report.fraud? do |report|
+        report.score < 2.5
+      end.should == true
+    end
+
+    it "evalutes a false block" do
+      @report.instance_eval { @response = { :score => 1 } }
+      @report.fraud? do |report|
+        report.score == 5
+      end.should == false
     end
   end
 
@@ -86,7 +98,8 @@ describe Hamburglar::Report do
 
   describe "#method_missing" do
     it "returns @response[key] if it exists" do
-      @report.missing_parameters.should_not be_nil
+      @report.instance_eval { @response = { :score => 1 } }
+      @report.score.should_not be_nil
     end
 
     it "raises NoMethodError if @report[key] isn't found" do

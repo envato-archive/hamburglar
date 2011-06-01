@@ -14,7 +14,7 @@ module Hamburglar
     end
 
     def method_missing(method, *args, &block)
-      if @response[method.to_sym]
+      if @response && @response[method.to_sym]
         @response[method.to_sym]
       else
         super
@@ -25,8 +25,14 @@ module Hamburglar
       @response.has_key?(key) || super
     end
 
-    def fraud?
-      @fraud ||= Hamburglar.config.fraud_proc.call(self)
+    def fraud?(&block)
+      @fraud = true if @response.nil? || @response.empty?
+      return @fraud if defined?(@fraud)
+      if block_given?
+        @fraud = !! block.call(self)
+      else
+        @fraud = @response[:score] >= Hamburglar.config.fraud_score
+      end
     end
 
   private
