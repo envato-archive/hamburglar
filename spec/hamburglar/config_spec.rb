@@ -14,12 +14,12 @@ describe Hamburglar::Config do
       @config.instance_variable_get(:@credentials).should be_a Hash
     end
 
-    it "sets @fraud_proc" do
-      @config.instance_variable_get(:@fraud_proc).should be_a Proc
+    it "sets @fraud_score" do
+      @config.instance_variable_get(:@fraud_score).should == 2.5
     end
   end
 
-  should_be_attr_accessor :fraud_proc, Hamburglar::Config.new
+  should_be_attr_accessor :fraud_score, Hamburglar::Config.new
   should_be_attr_accessor :credentials, Hamburglar::Config.new
   should_be_attr_reader :gateway, Hamburglar::Config.new
 
