@@ -176,7 +176,6 @@ describe Hamburglar::Gateways::Base do
     it "formats @params into a string for URL submission" do
       @gateway.instance_eval('query_string').should include 'foo=bar'
     end
-    it "rejects invalid params"
   end
 
   describe "#parse_response (private)" do
