@@ -22,11 +22,13 @@ module Hamburglar
     end
 
     def gateway
-      case @gateway
-      when :max_mind_min_fraud
+      case @gateway.to_s
+      when /min_fraud/
         Gateways::MaxMind::MinFraud
-      when :max_mind_telephone
+      when /telephone/
         Gateways::MaxMind::TelephoneVerification
+      else
+        raise Hamburglar::InvalidGateway, @gateway
       end
     end
 

@@ -35,6 +35,13 @@ describe Hamburglar::Report do
       @report.instance_eval('gateway').should ==
         Hamburglar::Gateways::MaxMind::TelephoneVerification
     end
+
+    it "raises InvalidGateway" do
+      expect do
+        @report.instance_variable_set(:@gateway, :foobar)
+        @report.instance_eval('gateway')
+      end.to raise_error Hamburglar::InvalidGateway
+    end
   end
 
   describe "#generate_report! (private)" do

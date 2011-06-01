@@ -7,11 +7,6 @@ describe Hamburglar do
     end
   end
 
-  describe "::GATEWAYS" do
-    it { Hamburglar::GATEWAYS.should be_a Array }
-    it { Hamburglar::GATEWAYS.should be_frozen  }
-  end
-
   describe "::configure" do
     it { Hamburglar.configure.should be_a Hamburglar::Config }
   end

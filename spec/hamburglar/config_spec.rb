@@ -7,7 +7,7 @@ describe Hamburglar::Config do
 
   describe "#initialize" do
     it "sets @gateway" do
-      @config.instance_variable_get(:@gateway).should == :max_mind_min_fraud
+      @config.instance_variable_get(:@gateway).should match /min_fraud/
     end
 
     it "sets @credentials" do
@@ -22,10 +22,6 @@ describe Hamburglar::Config do
     it "sets the gateway" do
       @config.gateway = :max_mind_telephone
       @config.gateway.should == :max_mind_telephone
-    end
-
-    it "raises InvalidGateway when assigned an invalid gateway" do
-      expect { @config.gateway = :foo }.to raise_error Hamburglar::InvalidGateway
     end
   end
 end
