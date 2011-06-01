@@ -10,6 +10,17 @@ module Hamburglar
       @report  = generate_report!
     end
 
+    def method_missing(method, *args, &block)
+      if @report[method.to_sym]
+        @report[method.to_sym]
+      else
+        super
+      end
+    end
+
+    def respond_to?(key)
+      @report.has_key?(key) || super
+    end
   private
 
     def generate_report!

@@ -55,9 +55,27 @@ describe Hamburglar::Report do
     it "returns true or false"
   end
 
-  describe "#[]" do
-    it "returns @report[key] if it exists", :pending => true do
-      @report[:distance].should_not be_nil
+  describe "#respond_to?" do
+    it "returns true if @report[key] exists" do
+      @report.should respond_to :missing_parameters
+    end
+
+    it "returns true if the method exists" do
+      @report.should respond_to :inspect
+    end
+
+    it "returns false unless @report[key] and method exist" do
+      @report.should_not respond_to :i_am_not_real
+    end
+  end
+
+  describe "#method_missing" do
+    it "returns @report[key] if it exists" do
+      @report.missing_parameters.should_not be_nil
+    end
+
+    it "raises NoMethodError if @report[key] isn't found" do
+      expect { @report.i_am_not_a_method! }.to raise_error NoMethodError
     end
   end
 end
