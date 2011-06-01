@@ -52,7 +52,25 @@ describe Hamburglar::Report do
   end
 
   describe "#fraud?" do
-    it "returns true or false"
+    before :each do
+      Hamburglar.configure do |c|
+        c.fraud_proc = Proc.new { |report| report.score < 5 }
+      end
+      @fraud = Hamburglar::Report.new
+      @fraud.instance_variable_get(:@response)[:score] = 1
+    end
+
+    describe "calls Hamburglar.config.fraud_proc" do
+      it "returns true" do
+        @fraud.instance_variable_get(:@response)[:score] = 1
+        @fraud.fraud?.should == true
+      end
+
+      it "returns false" do
+        @fraud.instance_variable_get(:@response)[:score] = 10
+        @fraud.fraud?.should == false
+      end
+    end
   end
 
   describe "#respond_to?" do

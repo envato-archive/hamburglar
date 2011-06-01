@@ -24,6 +24,11 @@ module Hamburglar
     def respond_to?(key)
       @response.has_key?(key) || super
     end
+
+    def fraud?
+      @fraud ||= Hamburglar.config.fraud_proc.call(self)
+    end
+
   private
 
     def generate_report!
