@@ -4,22 +4,25 @@ module Hamburglar
     # Parameters that will be used to generate this fraud report
     attr_reader :params
 
+    # Response from gateway
+    attr_reader :response
+
     def initialize(params = {})
-      @gateway = params.delete(:gateway) || Hamburglar.config.gateway
-      @params  = params
-      @report  = generate_report!
+      @gateway  = params.delete(:gateway) || Hamburglar.config.gateway
+      @params   = params
+      @response = generate_report!
     end
 
     def method_missing(method, *args, &block)
-      if @report[method.to_sym]
-        @report[method.to_sym]
+      if @response[method.to_sym]
+        @response[method.to_sym]
       else
         super
       end
     end
 
     def respond_to?(key)
-      @report.has_key?(key) || super
+      @response.has_key?(key) || super
     end
   private
 
