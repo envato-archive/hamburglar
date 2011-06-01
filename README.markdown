@@ -16,9 +16,18 @@ supports. See `Supported APIs` below.
 To get a fraud report, create a new instance of the `Hamburglar::Report`
 class:
 
-    # Check for fraud
     report = Hamburglar::Report.new(params)
+
+Check for fraud by comparing the fraud score to
+`Hamburglar.config.fraud_score`:
+
     report.fraud?
+
+If you need more control, you can pass in a block:
+
+    report.fraud? do |r|
+      r.score > 5 && r.distance > 100
+    end
 
 ### MaxMind
 
@@ -57,9 +66,13 @@ used minFraud, you can add the following to
 `config/initializers/hamburglar.rb`:
 
     Hamburglar.configure do |config|
+      config.fraud_score = 2.5
       config.gateway     = :max_mind_min_fraud
       config.credentials = { :license_key => 's3cr3tz' }
     end
+
+Note that Hamburglar uses a default fraud score of 2.5 and the default
+gateway is minFraud.
 
 ## Supported APIs
 
