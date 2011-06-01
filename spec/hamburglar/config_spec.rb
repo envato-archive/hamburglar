@@ -7,7 +7,7 @@ describe Hamburglar::Config do
 
   describe "#initialize" do
     it "sets @gateway" do
-      @config.instance_variable_get(:@gateway).should match /min_fraud/
+      @config.instance_variable_get(:@gateway).to_s.should match /min_fraud/
     end
 
     it "sets @credentials" do
