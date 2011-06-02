@@ -25,12 +25,10 @@ module Hamburglar
       end
 
       def initialize(params = {})
-        # TODO
-        # defaults  = (Hamburglar.config.credentials || {}).select do |key, val|
-        #   optional_params.include? key
-        # end
-        # @params = defaults.merge(params)
-        @params   = (Hamburglar.config.credentials || {}).merge(params)
+        defaults  = (Hamburglar.config.credentials || {}).select do |key, val|
+          optional_params.include? key
+        end
+        @params   = defaults.merge(params)
         @errors   = {}
         @response = {}
       end

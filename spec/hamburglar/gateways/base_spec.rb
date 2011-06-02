@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Hamburglar::Gateways::Base do
   before :each do
+    Hamburglar::Gateways::Base.set_required_params :license_key
     @gateway = Hamburglar::Gateways::Base.new(:foo => :bar)
     @gateway.class.set_api_url "http://example.com"
   end
@@ -91,6 +92,7 @@ describe Hamburglar::Gateways::Base do
 
   %w[params errors response].each do |attr|
     describe "##{attr}" do
+      it { @gateway.should have_attr_reader attr }
       it "returns @#{attr} hash" do
         val = @gateway.send(attr)
         raw = @gateway.instance_variable_get("@#{attr}")
@@ -158,13 +160,17 @@ describe Hamburglar::Gateways::Base do
   end
 
   describe "#submit" do
+    before :each do
+      @gateway.class.set_api_url 'http://example.com/foo/bar'
+    end
+
     it "returns false if validate returns false" do
-      Hamburglar::Gateways::Base.new.submit.should == false
+      should_require_params :bar
+      @gateway.class.new.submit.should == false
     end
 
     it "returns the HTTP data" do
       mock_request('http://example.com/foo/bar?license_key=s3cretz&foo=bar', :status => ['200', 'OK'], :body => 'key1=val1;key2=val2')
-      @gateway.class.set_api_url 'http://example.com/foo/bar'
       should_require_params :foo
       res = @gateway.submit
       res.should be_a Hash

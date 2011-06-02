@@ -47,6 +47,13 @@ describe Hamburglar::Gateways::MaxMind do
       @phone = Hamburglar::Gateways::MaxMind::TelephoneVerification.new
     end
 
+    describe "#initialize" do
+      it "merges credentials, if the key is in optional_params" do
+        Hamburglar.config.credentials[:license_key] = 'foobar'
+        @phone.params.should_not have_key :license_key
+      end
+    end
+
     describe "#optional_params" do
       it { @phone.optional_params.should be_an Array }
       it { @phone.optional_params.should be_frozen }
@@ -64,11 +71,6 @@ describe Hamburglar::Gateways::MaxMind do
     end
 
     describe "#submit" do
-      # TODO: Remove this
-      before :each do
-        Hamburglar.config.credentials = {}
-      end
-
       describe "with invalid license key" do
         use_vcr_cassette "max_mind/telephone_verification/submit_invalid_license_key"
         it "returns an error" do
