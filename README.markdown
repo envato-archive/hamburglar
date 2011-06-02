@@ -1,5 +1,7 @@
 # Hamburglar
 
+[![Build Status](http://travis-ci.org/site5/hamburglar.png)](http://travis-ci.org/site5/hamburglar)
+
 Hamburglar helps you prevent fraudulent orders.
 
 ## Prerequisites
