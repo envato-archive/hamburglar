@@ -41,4 +41,11 @@ task :console do
   sh "irb -rubygems -r ./lib/hamburglar.rb -I ./lib"
 end
 
+desc "Run 'rake spec' with multiple rubies"
+task :all_specs do
+  rubies = %w[1.8.7 1.9.2 jruby rbx-1.2.3].map { |r| "#{r}@hamburglar" }.join(',')
+  sh "rvm #{rubies} rake spec"
+  sh "find . -type f -name '*.rbc'| xargs rm"
+end
+
 task :default => :spec
