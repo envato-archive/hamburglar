@@ -21,7 +21,13 @@ RSpec.configure do |c|
   end
 end
 
-class MinFraudTest
+class ResponseTest
+  def self.response_to_s
+    response.map { |key, val| "#{key}=#{val}" }.join(';')
+  end
+end
+
+class MinFraudTest < ResponseTest
   def self.params
     {
       :i             => '127.0.0.1',
@@ -62,9 +68,11 @@ class MinFraudTest
       :explanation      => "This order is slightly risky, and we suggest that you review it manually, especially for B2B transactions. This order is considered to be a little higher risk because the distance between the billing address and the user's actual location is larger than expected. The order is slightly riskier because the e-mail domain, gmail.com, is a free e-mail provider"
     }
   end
+end
 
-  def self.response_to_s
-    response.map { |key, val| "#{key}=#{val}" }.join(';')
+class TelephoneVerificationTest < ResponseTest
+  def self.params
+    { :l => 's3cretz', :phone => '+15554440000' }
   end
 end
 

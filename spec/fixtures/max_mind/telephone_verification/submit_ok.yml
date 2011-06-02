@@ -1,0 +1,26 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: https://www.maxmind.com:443/app/telephone_http?l=s3cretz&phone=%2B15554440000
+    body:
+    headers:
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Thu, 02 Jun 2011 18:14:37 GMT
+      server:
+      - Apache
+      content-type:
+      - text/plain
+      x-req-start:
+      - t=1307038477840588
+      x-req-proc:
+      - D=337883
+      transfer-encoding:
+      - chunked
+    body: refid=4FEED874AB1A42A1B8C7FDA66644CB0A;randCode=6356
+    http_version: "1.1"

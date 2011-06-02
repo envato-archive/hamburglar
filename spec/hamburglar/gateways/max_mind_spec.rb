@@ -62,5 +62,30 @@ describe Hamburglar::Gateways::MaxMind do
       reg = Hamburglar::Gateways::Base::URL_REGEX
       it { @phone.class.api_url.should match reg }
     end
+
+    describe "#submit" do
+      # TODO: Remove this
+      before :each do
+        Hamburglar.config.credentials = {}
+      end
+
+      describe "with invalid license key" do
+        use_vcr_cassette "max_mind/telephone_verification/submit_invalid_license_key"
+        it "returns an error" do
+          min = Hamburglar::Gateways::MaxMind::TelephoneVerification.new(TelephoneVerificationTest.params)
+          min.submit.should be_a Hash
+          min.response[:err].should match /Invalid/
+        end
+      end
+
+      describe "with valid params" do
+        use_vcr_cassette "max_mind/telephone_verification/submit_ok"
+        it "returns the verification hash" do
+          min = Hamburglar::Gateways::MaxMind::TelephoneVerification.new(TelephoneVerificationTest.params)
+          min.submit.should be_a Hash
+          min.response[:refid].should_not be_nil
+        end
+      end
+    end
   end
 end
