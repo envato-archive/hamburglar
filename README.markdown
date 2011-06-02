@@ -7,7 +7,7 @@ Hamburglar helps you prevent fraudulent orders.
 ## Prerequisites
 
 You must have an active account with one of the APIs Hamburglar
-supports. See `Supported APIs` below.
+supports. See **Supported APIs** below.
 
 ## Installation
 
@@ -25,11 +25,18 @@ Check for fraud by comparing the fraud score to
 
     report.fraud?
 
-If you need more control, you can pass in a block:
+By default, Hamburglar only considers the numeric fraud score when
+trying to determine if an order is fraudulent. If you need more control,
+you can configure `Hamburglar.config.fraud_proc`. It should be a block
+that returns true when the order should be considered fraudulent.
 
-    report.fraud? do |r|
-      r.score > 5 && r.distance > 100
+    Hamburglar.configure do |c|
+      c.fraud_proc = lambda do |report|
+        report.score > 5 && report.distance > 100
+      end
     end
+
+    report.fraud?
 
 ### MaxMind
 
