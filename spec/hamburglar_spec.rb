@@ -12,7 +12,7 @@ describe Hamburglar do
   end
 
   describe "::config" do
-    should_be_attr_accessor :config, Hamburglar, Hamburglar::Config.new
+    it { Hamburglar.should have_attr_accessor :config }
   end
 
 end

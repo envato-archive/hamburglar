@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Hamburglar::Config do
   before :each do
     @config = Hamburglar::Config.new
+    subject { @config }
   end
 
   describe "#initialize" do
@@ -19,10 +20,10 @@ describe Hamburglar::Config do
     end
   end
 
-  should_be_attr_accessor :fraud_score, Hamburglar::Config.new
-  should_be_attr_accessor :fraud_proc, Hamburglar::Config.new
-  should_be_attr_accessor :credentials, Hamburglar::Config.new
-  should_be_attr_reader :gateway, Hamburglar::Config.new
+  it { should have_attr_accessor :fraud_score }
+  it { should have_attr_accessor :fraud_proc  }
+  it { should have_attr_accessor :credentials }
+  it { should have_attr_reader   :gateway     }
 
   describe "#gateway=" do
     it "sets the gateway" do

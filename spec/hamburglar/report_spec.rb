@@ -114,6 +114,6 @@ describe Hamburglar::Report do
   end
 
   describe "#response" do
-    should_be_attr_reader :response, Hamburglar::Report.new
+    it { @report.should have_attr_reader :response }
   end
 end

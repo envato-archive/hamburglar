@@ -70,6 +70,36 @@ class MinFraudTest < ResponseTest
   end
 end
 
+RSpec::Matchers.define :have_attr_accessor do |attribute|
+  match do |object|
+    object.respond_to?(attribute) && object.respond_to?("#{attribute}=")
+  end
+
+  description do
+    "have attr_writer :#{attribute}"
+  end
+end
+
+RSpec::Matchers.define :have_attr_reader do |attribute|
+  match do |object|
+    object.respond_to? attribute
+  end
+
+  description do
+    "have attr_reader :#{attribute}"
+  end
+end
+
+RSpec::Matchers.define :have_attr_writer do |attribute|
+  match do |object|
+    object.respond_to? "#{attribute}="
+  end
+
+  description do
+    "have attr_writer :#{attribute}"
+  end
+end
+
 class TelephoneVerificationTest < ResponseTest
   def self.params
     { :l => 's3cretz', :phone => '+15554440000' }
@@ -79,32 +109,6 @@ end
 def should_require_params(*params)
   @gateway.class.set_required_params *params
   @gateway.class.required_params.should == params
-end
-
-def should_be_attr_accessor(key, obj, val = 'foobar')
-  describe "attr_accessor :#{key}" do
-    should_be_attr_reader key, obj, val
-    should_be_attr_writer key, obj, val
-  end
-end
-
-def should_be_attr_reader(key, obj, val = 'foobar')
-  describe "attr_reader :#{key}" do
-    it { obj.should respond_to key.to_sym }
-    it "gets @#{key}" do
-      obj.send(key).should == obj.instance_variable_get("@#{key}")
-    end
-  end
-end
-
-def should_be_attr_writer(key, obj, val = 'foobar')
-  describe "attr_writer :#{key}" do
-    it { obj.should respond_to "#{key}=".to_sym }
-    it "sets @#{key}" do
-      obj.send("#{key}=", val)
-      obj.instance_variable_get("@#{key}").should == val
-    end
-  end
 end
 
 def mock_request(url, options = {})
