@@ -28,7 +28,7 @@ module Hamburglar
         defaults  = (Hamburglar.config.credentials || {}).select do |key, val|
           optional_params.include? key
         end
-        @params   = defaults.merge(params)
+        @params   = Hash[defaults].merge(params)
         @errors   = {}
         @response = {}
       end
