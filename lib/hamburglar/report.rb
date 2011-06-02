@@ -31,7 +31,7 @@ module Hamburglar
       if block_given?
         @fraud = !! block.call(self)
       else
-        @fraud = @response[:score] >= Hamburglar.config.fraud_score
+        @fraud = @response[:score].to_f >= Hamburglar.config.fraud_score.to_f
       end
     end
 

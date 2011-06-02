@@ -80,6 +80,11 @@ describe Hamburglar::Report do
         report.score == 5
       end.should == false
     end
+
+    it "converts a string score to_f" do
+      @report.instance_eval { @response = { :score => '1' } }
+      @report.fraud?.should == false
+    end
   end
 
   describe "#respond_to?" do
