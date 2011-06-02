@@ -26,7 +26,7 @@ describe Hamburglar::Gateways::MaxMind do
       describe "with invalid license key" do
         use_vcr_cassette "max_mind/min_fraud/submit_invalid_license_key"
         it "returns an error" do
-          min = Hamburglar::Gateways::MaxMind::MinFraud.new(MinFraudTest.params)
+          min = @min_fraud.class.new(MinFraudTest.params)
           min.submit
           min.response[:err].should match /INVALID_LICENSE/
         end
@@ -34,7 +34,7 @@ describe Hamburglar::Gateways::MaxMind do
       describe "with valid params" do
         use_vcr_cassette "max_mind/min_fraud/submit_ok"
         it "returns the fraud report hash" do
-          min = Hamburglar::Gateways::MaxMind::MinFraud.new(MinFraudTest.params)
+          min = @min_fraud.class.new(MinFraudTest.params)
           min.submit
           min.response[:distance].should_not be_nil
         end
@@ -72,7 +72,7 @@ describe Hamburglar::Gateways::MaxMind do
       describe "with invalid license key" do
         use_vcr_cassette "max_mind/telephone_verification/submit_invalid_license_key"
         it "returns an error" do
-          min = Hamburglar::Gateways::MaxMind::TelephoneVerification.new(TelephoneVerificationTest.params)
+          min = @phone.class.new(TelephoneVerificationTest.params)
           min.submit.should be_a Hash
           min.response[:err].should match /Invalid/
         end
@@ -81,7 +81,7 @@ describe Hamburglar::Gateways::MaxMind do
       describe "with valid params" do
         use_vcr_cassette "max_mind/telephone_verification/submit_ok"
         it "returns the verification hash" do
-          min = Hamburglar::Gateways::MaxMind::TelephoneVerification.new(TelephoneVerificationTest.params)
+          min = @phone.class.new(TelephoneVerificationTest.params)
           min.submit.should be_a Hash
           min.response[:refid].should_not be_nil
         end
