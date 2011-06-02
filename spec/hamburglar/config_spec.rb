@@ -20,6 +20,7 @@ describe Hamburglar::Config do
   end
 
   should_be_attr_accessor :fraud_score, Hamburglar::Config.new
+  should_be_attr_accessor :fraud_proc, Hamburglar::Config.new
   should_be_attr_accessor :credentials, Hamburglar::Config.new
   should_be_attr_reader :gateway, Hamburglar::Config.new
 

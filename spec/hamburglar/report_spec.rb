@@ -67,23 +67,24 @@ describe Hamburglar::Report do
       @report.fraud?.should == true
     end
 
-    it "evaluates a true block" do
-      @report.instance_eval { @response = { :score => 1 } }
-      @report.fraud? do |report|
-        report.score < 2.5
-      end.should == true
-    end
-
-    it "evalutes a false block" do
-      @report.instance_eval { @response = { :score => 1 } }
-      @report.fraud? do |report|
-        report.score == 5
-      end.should == false
-    end
-
     it "converts a string score to_f" do
       @report.instance_eval { @response = { :score => '1' } }
       @report.fraud?.should == false
+    end
+
+    describe "with Config#fraud_proc" do
+      before :each do
+        @report.instance_eval { @response = { :score => 1 } }
+      end
+      it "evaluates a true block" do
+        Hamburglar.config.fraud_proc = lambda { |r| true }
+        @report.fraud?.should == true
+      end
+
+      it "evalutes a false block" do
+        Hamburglar.config.fraud_proc = lambda { |r| false }
+        @report.fraud?.should == false
+      end
     end
   end
 

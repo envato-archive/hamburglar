@@ -25,13 +25,13 @@ module Hamburglar
       @response.has_key?(key) || super
     end
 
-    def fraud?(&block)
+    def fraud?
       @fraud = true if @response.nil? || @response.empty?
-      return @fraud if defined?(@fraud)
-      if block_given?
-        @fraud = !! block.call(self)
-      else
+      return @fraud if @fraud
+      if Hamburglar.config.fraud_proc.nil?
         @fraud = @response[:score].to_f >= Hamburglar.config.fraud_score.to_f
+      else
+        @fraud = !! Hamburglar.config.fraud_proc.call(self)
       end
     end
 
