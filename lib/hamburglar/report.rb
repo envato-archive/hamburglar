@@ -31,7 +31,7 @@ module Hamburglar
       if Hamburglar.config.fraud_proc.nil?
         @fraud = @response[:score].to_f >= Hamburglar.config.fraud_score.to_f
       else
-        @fraud = !! Hamburglar.config.fraud_proc.call(self)
+        @fraud = Hamburglar.config.fraud_proc.call(self) == true
       end
     end
 
