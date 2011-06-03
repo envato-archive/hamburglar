@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hamburglar (0.0.0)
+    hamburglar (0.1.0)
 
 GEM
   remote: http://rubygems.org/
