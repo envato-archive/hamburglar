@@ -4,6 +4,8 @@
 
 Hamburglar helps you prevent fraudulent orders.
 
+Confirmed to work with ruby 1.8.7, 1.9.2, Rubinus, and JRuby 1.6.2.
+
 ## Prerequisites
 
 You must have an active account with one of the APIs Hamburglar
