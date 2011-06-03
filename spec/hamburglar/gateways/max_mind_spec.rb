@@ -22,6 +22,16 @@ describe Hamburglar::Gateways::MaxMind do
       it { @min_fraud.class.api_url.should match reg }
     end
 
+    describe "#initialize" do
+      it "translates params[:ip] to params[:i]" do
+        fraud = @min_fraud.class.new(:ip => '127.1.1.1')
+        params = fraud.instance_variable_get(:@params)
+        params.should have_key :i
+        params.should_not have_key :ip
+        params[:i].should == '127.1.1.1'
+      end
+    end
+
     describe "#submit" do
       describe "with invalid license key" do
         use_vcr_cassette "max_mind/min_fraud/submit_invalid_license_key"
@@ -51,6 +61,14 @@ describe Hamburglar::Gateways::MaxMind do
       it "merges credentials, if the key is in optional_params" do
         Hamburglar.config.credentials[:license_key] = 'foobar'
         @phone.params.should_not have_key :license_key
+      end
+
+      it "translates params[:license_key] to params[:l]" do
+        fraud = @phone.class.new(:license_key => 's3cretz')
+        params = fraud.instance_variable_get(:@params)
+        params.should have_key :l
+        params.should_not have_key :license_key
+        params[:l].should == 's3cretz'
       end
     end
 

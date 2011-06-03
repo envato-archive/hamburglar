@@ -44,6 +44,11 @@ module Hamburglar
             :accept_language
           ].freeze
         end
+
+        def initialize(params = {})
+          params[:i] = params.delete(:ip) if params[:ip]
+          super params
+        end
       end
 
       # The TelephoneVerification class handles fraud verification
@@ -60,6 +65,11 @@ module Hamburglar
         # Optional parameters
         def optional_params
           [:l, :phone, :verify_code].freeze
+        end
+
+        def initialize(params = {})
+          params[:l] = params.delete(:license_key) if params[:license_key]
+          super params
         end
       end
 
