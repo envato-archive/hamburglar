@@ -62,9 +62,9 @@ By default, reports will use the minFraud API.
 **Generate a fraud report using Telephone Verification**
 
     report = Hamburglar::Report.new(
-      :gateway     => :max_mind_telephone,
-      :license_key => 's3cr3tz',
-      :phone       => '+18004445555'
+      :gateway => :max_mind_telephone,
+      :l       => 's3cr3tz',
+      :phone   => '+18004445555'
     )
 
 ## Optional Configuration
