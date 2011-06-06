@@ -8,6 +8,8 @@ module Hamburglar
     # this class
     class Base
 
+      # A regex for matching URLs with http or https
+      # This will be used to verify API urls
       URL_REGEX = /https?:\/\/[\S]+/
 
       # The parameters for the API request
