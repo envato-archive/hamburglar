@@ -1,10 +1,11 @@
-# Hamburglar
-
-[![Build Status](http://travis-ci.org/site5/hamburglar.png)](http://travis-ci.org/site5/hamburglar)
+# Hamburglar [![Hamburglar Build Status][Build Icon]][Build Status]
 
 Hamburglar helps you prevent fraudulent orders.
 
 Confirmed to work with ruby 1.8.7, 1.9.2, Rubinus, and JRuby 1.6.2.
+
+[Build Icon]: https://secure.travis-ci.org/site5/hamburglar.png?branch=master
+[Build Status]: http://travis-ci.org/site5/hamburglar
 
 ## Prerequisites
 
