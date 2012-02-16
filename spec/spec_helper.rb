@@ -70,6 +70,20 @@ class MinFraudTest < ResponseTest
   end
 end
 
+class IpInfoTest < ResponseTest
+  def self.params
+    {
+      :key => 'c742e1d3308615ad75329213123ae11e46f198b30da9633f8d9d546352096e92',
+      :ip => '74.125.45.100',
+      :country_code => 'us',
+      :district => '94043',
+      :area_code => '650',
+      :mail_domain => 'ipinfodb.com',
+      :city => 'Mountain+View'
+    }
+  end
+end
+
 RSpec::Matchers.define :have_attr_accessor do |attribute|
   match do |object|
     object.respond_to?(attribute) && object.respond_to?("#{attribute}=")
