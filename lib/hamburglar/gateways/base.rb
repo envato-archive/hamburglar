@@ -124,29 +124,14 @@ module Hamburglar
       end
 
       # Performs a GET request on the given URI, redirects if needed
-      #
-      # See Following Redirection at
-      # http://ruby-doc.org/stdlib/libdoc/net/http/rdoc/classes/Net/HTTP.html
       def fetch(uri_str, limit = 10)
         # You should choose better exception.
         raise ArgumentError, 'HTTP redirect too deep' if limit == 0
-
-        uri = URI.parse(uri_str)
-        http = Net::HTTP.new(uri.host, uri.port)
-        if uri.scheme == 'https'
-          http.use_ssl = true
-          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-          http.ca_file = File.expand_path('../../../cacert.pem', __FILE__)
-        end
-        request = Net::HTTP::Get.new(uri.request_uri)
-        response = http.start { |http| http.request(request) }
-
-        case response
-        when Net::HTTPSuccess     then response
-        when Net::HTTPRedirection then fetch(response['location'], limit - 1)
-        else
-          response.error!
-        end
+        Faraday.new(:url => uri_str, :ssl => {:verify => true, :ca_file => File.expand_path('../../../cacert.pem', __FILE__)}) do |c|
+          c.response :raise_error
+          c.response :follow_redirects, :limit => limit
+          c.adapter :net_http
+        end.get
       end
 
     end
