@@ -1,4 +1,6 @@
 require 'hamburglar/errors'
+require 'faraday'
+require 'faraday_middleware'
 
 module Hamburglar
   autoload :Version,  'hamburglar/version'

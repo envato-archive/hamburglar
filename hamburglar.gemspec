@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
   s.files           += Dir['lib/**/*']
   s.files           += Dir['test/**/*']
 
-
+  s.add_dependency 'faraday', '~> 0.8.0rc2'
+  s.add_dependency 'faraday_middleware', '~> 0.8.5'
   s.add_runtime_dependency('jruby-openssl', '~> 0.7.3') if RUBY_PLATFORM == 'java'
   s.add_development_dependency('rspec', '~> 2.6')
   s.add_development_dependency('rake',  '~> 0.9.2.2')
