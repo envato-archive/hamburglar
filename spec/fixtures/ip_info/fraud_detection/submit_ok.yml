@@ -1,0 +1,41 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: http://api.ipinfodb.com:80/v2/fraud_query.php?key=c742e1d3308615ad75329213123ae11e46f198b30da9633f8d9d546352096e92&ip=74.125.45.100&country_code=us&district=94043&area_code=650&mail_domain=ipinfodb.com&city=Mountain%2BView
+    body: !!null 
+    headers: !!null 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Thu, 16 Feb 2012 03:15:59 GMT
+      server:
+      - Apache/2.2.14 (Ubuntu)
+      x-powered-by:
+      - PHP/5.3.2-1ubuntu4.11
+      vary:
+      - Accept-Encoding
+      content-length:
+      - '1381'
+      content-type:
+      - text/xml; charset=UTF-8
+    body: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Response>\n\t<Errors></Errors>\n\t<Warnings></Warnings>\n\t<Messages></Messages>\n\t<DistrictCity>Mountain
+      View</DistrictCity>\n\t<IpCountryCode>US</IpCountryCode>\n\t<IpCountry>United
+      States</IpCountry>\n\t<IpRegionCode>06</IpRegionCode>\n\t<IpRegion>California</IpRegion>\n\t<IpCity>Mountain
+      View</IpCity>\n\t<IpHostName></IpHostName>\n\t<Score>100</Score>\n\t<AccuracyScore>100</AccuracyScore>\n\t<ScoreDetails>Postal/zip
+      code city : Mountain View, supplied city : Mountain+View, match score : 100
+      | Distance between IP and shipping city : 2 KM | Shipping country : US, IP address
+      country : US | Shipping district city : Mountain View, IP address city : Mountain
+      View, match score : 100 | IP area code : 650, supplied area code : 650 | Postal/zip
+      code area code : 650, supplied area code : 650 | Mail domain is NOT from a free
+      email provider | IP address NOT in the Spamhaus database | ip_country_match
+      test success. Added 10 points | areacode_ip_match test success. Added 3 points
+      | areacode_district_match test success. Added 4 points | city_district_match
+      test success. Added 4 points | ip_city_distance test success. Added 3 points
+      | ip_city_match test success. Added 2 points | spamhaus test success. Added
+      2 points | freemail test success. Added 1 points | Accuracy score : 29 points
+      on 29 possible points | Final score : 29 on 29</ScoreDetails>\n</Response>\n"
+    http_version: '1.1'

@@ -1,0 +1,27 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :get
+    uri: http://api.ipinfodb.com:80/v2/fraud_query.php?key=aaa&ip=74.125.45.100&country_code=us&district=94043&area_code=650&mail_domain=ipinfodb.com&city=Mountain%2BView
+    body: !!null 
+    headers: !!null 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Thu, 16 Feb 2012 03:15:58 GMT
+      server:
+      - Apache/2.2.14 (Ubuntu)
+      x-powered-by:
+      - PHP/5.3.2-1ubuntu4.11
+      vary:
+      - Accept-Encoding
+      content-length:
+      - '412'
+      content-type:
+      - text/xml; charset=UTF-8
+    body: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Response>\n\t<Errors>Invalid
+      API key</Errors>\n\t<Warnings></Warnings>\n\t<Messages></Messages>\n\t<DistrictCity></DistrictCity>\n\t<IpCountryCode></IpCountryCode>\n\t<IpCountry></IpCountry>\n\t<IpRegionCode></IpRegionCode>\n\t<IpRegion></IpRegion>\n\t<IpCity></IpCity>\n\t<IpHostName></IpHostName>\n\t<Score></Score>\n\t<AccuracyScore></AccuracyScore>\n\t<ScoreDetails></ScoreDetails>\n</Response>\n"
+    http_version: '1.1'
