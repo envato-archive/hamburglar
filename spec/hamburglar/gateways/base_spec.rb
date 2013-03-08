@@ -28,12 +28,6 @@ describe Hamburglar::Gateways::Base do
 
   describe "::required_params" do
     it "returns @required_params" do
-      should_require_params
-      @gateway.class.instance_variable_get(:@required_params).should be_a Array
-    end
-  end
-  describe "::set_required_params" do
-    it "sets @required_params with arguments" do
       should_require_params :one, :two, :three
     end
   end
@@ -84,10 +78,6 @@ describe Hamburglar::Gateways::Base do
         @gateway.instance_variable_get("@#{var}").should == {}
       end
     end
-  end
-
-  describe "#optional_params" do
-    it { @gateway.optional_params.should be_an Array }
   end
 
   %w[params errors response].each do |attr|
