@@ -27,10 +27,7 @@ module Hamburglar
       end
 
       def initialize(params = {})
-        defaults  = (Hamburglar.config.credentials || {}).select do |key, val|
-          optional_params.include? key
-        end
-        @params   = Hash[defaults].merge(params)
+        @params   = Hash[Hamburglar.config.credentials].merge(params)
         @errors   = {}
         @response = {}
       end
@@ -86,16 +83,6 @@ module Hamburglar
         if res = fetch(url)
           @response = parse_response(res.body)
         end
-      end
-
-      # Optional parameters that *may* be present in a query
-      #
-      # This method should be overridden by classes than inherit from
-      # Hamburglar::Gateways::Base
-      #
-      # Defaults to self.required_params
-      def optional_params
-        self.class.required_params
       end
 
       private

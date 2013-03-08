@@ -6,11 +6,6 @@ describe Hamburglar::Gateways::MaxMind do
       @min_fraud = Hamburglar::Gateways::MaxMind::MinFraud.new
     end
 
-    describe "#optional_params" do
-      it { @min_fraud.optional_params.should be_an Array }
-      it { @min_fraud.optional_params.should be_frozen }
-    end
-
     describe "::required_params" do
       [:i, :city, :region, :postal, :country, :license_key].each do |p|
         it { @min_fraud.class.required_params.should include p }
@@ -70,11 +65,6 @@ describe Hamburglar::Gateways::MaxMind do
         params.should_not have_key :license_key
         params[:l].should == 's3cretz'
       end
-    end
-
-    describe "#optional_params" do
-      it { @phone.optional_params.should be_an Array }
-      it { @phone.optional_params.should be_frozen }
     end
 
     describe "::required_params" do
