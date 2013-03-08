@@ -14,37 +14,6 @@ module Hamburglar
         # Required parameters for a minFraud API call
         set_required_params :i, :city, :region, :postal, :country, :license_key
 
-        # Optional parameters
-        def optional_params
-          [
-            :i,
-            :city,
-            :region,
-            :postal,
-            :country,
-            :license_key,
-            :domain,
-            :bin,
-            :binName,
-            :binPhone,
-            :custPhone,
-            :requested_type,
-            :forwardedIP,
-            :emailMD5,
-            :usernameMD5,
-            :passwordMD5,
-            :shipAddr,
-            :shipCity,
-            :shipRegion,
-            :shipPostal,
-            :shipCountry,
-            :textID,
-            :sessionID,
-            :user_agent,
-            :accept_language
-          ].freeze
-        end
-
         def initialize(params = {})
           params[:i] = params.delete(:ip) if params[:ip]
           super params
@@ -62,14 +31,9 @@ module Hamburglar
         # Required parameters for a Telephone Verification API call
         set_required_params :l, :phone
 
-        # Optional parameters
-        def optional_params
-          [:l, :phone, :verify_code].freeze
-        end
-
         def initialize(params = {})
-          params[:l] = params.delete(:license_key) if params[:license_key]
-          super params
+          super
+          self.params[:l] = self.params.delete(:license_key) if self.params[:license_key]
         end
       end
 
