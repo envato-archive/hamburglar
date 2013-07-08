@@ -107,7 +107,8 @@ module Hamburglar
             next
           end
         end
-        Hash[data]
+
+        Hash[data.compact]
       end
 
       # Performs a GET request on the given URI, redirects if needed
