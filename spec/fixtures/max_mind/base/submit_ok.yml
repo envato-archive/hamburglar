@@ -1,0 +1,16 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: http://example.com/path
+    body: "license_key=s3cretz&foo=bar"
+    headers:
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - text/plain
+    body: "key1=val1;key2=val2"
+    http_version: "1.1"
