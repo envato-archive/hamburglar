@@ -1,9 +1,9 @@
 ---
 - !ruby/struct:VCR::HTTPInteraction
   request: !ruby/struct:VCR::Request
-    method: :get
-    uri: https://www.maxmind.com:443/app/telephone_http?l=s3cretz&phone=%2B15554440000
-    body:
+    method: :post
+    uri: https://www.maxmind.com:443/app/telephone_http
+    body: l=s3cretz&phone=%2B15554440000
     headers:
   response: !ruby/struct:VCR::Response
     status: !ruby/struct:VCR::ResponseStatus
