@@ -3,6 +3,67 @@ module Hamburglar
     # The MaxMind module contains classes for working
     # with MaxMind's minFraud and Telephone Verification APIs
     module MaxMind
+      class Base < ::Hamburglar::Gateways::Base
+        # A regex for matching URLs with http or https
+        # This will be used to verify API urls
+        URL_REGEX = /https?:\/\/[\S]+/
+
+        # Get or set the API URL for the gateway
+        def self.set_api_url(url = '')
+          if url.match URL_REGEX
+            @api_url = url
+          else
+            raise Hamburglar::InvalidURL, url
+          end
+        end
+
+        # Submit a request upstream to generate a fraud report
+        def submit
+          return false unless valid?
+          url = "#{self.class.api_url}?#{query_string}"
+          if res = fetch(url)
+            @response = parse_response(res.body)
+          end
+        end
+
+        private
+
+        # Formats @params into a query string for an HTTP GET request
+        def query_string
+          @params.map { |key, val| "#{key}=#{CGI.escape(val.to_s)}" }.join('&')
+        end
+
+        # Parses raw data returned from an API call
+        #
+        # This method should be overwritten by any API subclasses that
+        # return data in a different format
+        #
+        # Returns [Hash]
+        def parse_response(raw = '')
+          data = raw.to_s.force_encoding("ISO-8859-1").encode("UTF-8").split(';').map do |line|
+            key, val = line.split('=')
+            if key.to_s != "" && val.to_s != ""
+              [key.to_sym, val]
+            else
+              next
+            end
+          end
+          Hash[data]
+        end
+
+        # Performs a GET request on the given URI, redirects if needed
+        def fetch(uri_str, limit = 10)
+          # You should choose better exception.
+          raise ArgumentError, 'HTTP redirect too deep' if limit == 0
+          Faraday.new(:url => uri_str, :ssl => {:verify => true, :ca_file => File.expand_path('../../../cacert.pem', __FILE__)}) do |c|
+            c.response :raise_error
+            c.response :follow_redirects, :limit => limit
+            c.adapter :net_http
+          end.get
+        end
+
+      end
+
       # The MinFraud class handles fraud verification
       # through MaxMind's minFraud API.
       #
