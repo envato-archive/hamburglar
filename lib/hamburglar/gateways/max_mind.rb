@@ -10,7 +10,12 @@ module Hamburglar
         class ResponseParser < ::FaradayMiddleware::ResponseMiddleware
           define_parser do |body|
             unless body.strip.empty?
-              body.split(';').each_with_object({}) do |line, hash|
+              # MaxMind returns the response encoded with ISO-8859-1, so we normalize
+              # it to UTF-8.
+              # http://dev.maxmind.com/minfraud/#Output
+              body = body.force_encoding("ISO-8859-1").encode("UTF-8").split(';')
+
+              body.each_with_object({}) do |line, hash|
                 key, val = line.split('=')
 
                 if key.to_s != "" && val.to_s != ""

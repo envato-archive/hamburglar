@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'spec_helper'
 
 class Hamburglar::Gateways::MaxMind::Base
@@ -13,6 +15,9 @@ describe Hamburglar::Gateways::MaxMind do
       .should == { key1: 'val1', key2: 'val2', key3: 'val3' } }
 
     specify { subject.parse('foo=;=bar;==;;').should == {} }
+
+    specify { subject.parse('foo=áccént'.encode('ISO-8859-1'))
+      .should == { foo: 'áccént'.encode('UTF-8') } }
   end
 
   describe Hamburglar::Gateways::MaxMind::Base do
