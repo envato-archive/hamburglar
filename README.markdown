@@ -2,8 +2,7 @@
 
 Hamburglar helps you prevent fraudulent orders.
 
-Hamburglar has been tested on MRI 1.8.7, MRI 1.9.2, MRI 1.9.3 Preview 1,
-Rubinius 2.0.0pre, and JRuby 1.6.2.
+Hamburglar has been tested on MRI 1.9.3, MRI 2.0.0 and 1.9-compatible JRuby.
 
 [Build Icon]: https://secure.travis-ci.org/site5/hamburglar.png?branch=master
 [Build Status]: http://travis-ci.org/site5/hamburglar
