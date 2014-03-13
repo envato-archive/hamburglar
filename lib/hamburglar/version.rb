@@ -1,3 +1,3 @@
 module Hamburglar
-  VERSION = Version = '0.1.4'
+  VERSION = Version = '0.1.5'
 end
