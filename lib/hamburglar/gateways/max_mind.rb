@@ -26,8 +26,8 @@ module Hamburglar
           end
         end
 
-        Faraday.register_middleware :response,
-          maxmind: ::Hamburglar::Gateways::MaxMind::Base::ResponseParser
+        Faraday::Response.register_middleware maxmind:
+          ::Hamburglar::Gateways::MaxMind::Base::ResponseParser
 
         # Submit a request upstream to generate a fraud report
         def submit
