@@ -2,7 +2,8 @@
 
 Hamburglar helps you prevent fraudulent orders.
 
-Hamburglar has been tested on MRI 1.9.3, MRI 2.0.0 and 1.9-compatible JRuby.
+Hamburglar has been tested on MRI 1.9.3, MRI 2.0.0, MRI 2.1.2, and
+1.9-compatible JRuby.
 
 [Build Icon]: https://secure.travis-ci.org/site5/hamburglar.png?branch=master
 [Build Status]: http://travis-ci.org/site5/hamburglar
@@ -88,8 +89,8 @@ gateway is minFraud.
 
 ## Supported APIs
 
-* [MaxMind MinFraud](http://www.maxmind.com/app/ccv/)
-* [MaxMind Telephone Verification](http://www.maxmind.com/app/telephone_api)
+* [MaxMind MinFraud](http://dev.maxmind.com/minfraud/)
+* [MaxMind Telephone Verification](https://www.maxmind.com/en/telephone_api)
 
 ## Note on Patches/Pull Requests
 
@@ -103,4 +104,4 @@ gateway is minFraud.
 
 ## Copyright
 
-Copyright (c) 2012 Site5.com. See LICENSE for details.
+Copyright (c) 2012-2014 Site5.com. See LICENSE for details.
