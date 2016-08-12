@@ -8,9 +8,9 @@ Gem::Specification.new do |s|
   s.version          = Hamburglar::Version
   s.date             = Time.now.strftime('%Y-%m-%d')
   s.summary          = 'Hamburglar helps you prevent fraudulent orders'
-  s.homepage         = 'https://github.com/site5/hamburglar'
+  s.homepage         = 'https://github.com/pressednet/hamburglar'
   s.authors          = ['Joshua Priddle']
-  s.email            = 'jpriddle@site5.com'
+  s.email            = 'josh@pressed.net'
   s.license          = 'MIT'
 
   s.files            = %w[ Rakefile README.markdown ]
